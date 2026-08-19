@@ -1,0 +1,62 @@
+{
+  "source_file": "Neuronal_celltype_translation_reviewer_ready.py",
+  "core_functions_extracted_without_body_changes": {
+    "models/hurdle_ae.py": [
+      "HurdleAutoencoder"
+    ],
+    "models/cyclegan.py": [
+      "build_generator",
+      "build_discriminator",
+      "build_generator_with_affine_head"
+    ],
+    "training/hurdle_ae_training.py": [
+      "corrupt_nonzero_entries",
+      "NumpyExpressionDataset",
+      "compute_pos_weight_per_gene",
+      "masked_smooth_l1",
+      "hurdle_loss",
+      "train_shared_hurdle_ae",
+      "infer_z_p_mag",
+      "calibrate_tau_gene",
+      "hard_decode",
+      "z_standardize_stats",
+      "run_shared_hurdle_ae"
+    ],
+    "training/cyclegan_training.py": [
+      "generator_loss",
+      "discriminator_loss",
+      "cycle_loss",
+      "identity_loss",
+      "gradient_penalty",
+      "knn_pair_loss_cos",
+      "cov_loss",
+      "moment_loss",
+      "mmd_rbf",
+      "make_mnn_pairs",
+      "make_cyclegan_train_step",
+      "train_latent_cyclegan",
+      "plot_gan_training_curves"
+    ],
+    "inference/translate.py": [
+      "load_state_pair_latents",
+      "_translation_slug",
+      "_ae_prefix_from_outputs",
+      "_load_hurdle_ae_checkpoint",
+      "decode_latents_with_hurdle_ae",
+      "save_cyclegan_artifacts",
+      "translate_and_decode_source",
+      "_run_translation"
+    ],
+    "utils/reproducibility.py": [
+      "set_torch_seed",
+      "set_tf_seed"
+    ],
+    "utils/validation.py": [
+      "validate_expression_matrix",
+      "basic_stats",
+      "check_mag_scale",
+      "check_latent_separation",
+      "check_hard_decode_quality"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+# Replace with the exact package versions used for the manuscript run before archival release.
+numpy
+torch
+tensorflow
+scikit-learn
+matplotlib
+PyYAML

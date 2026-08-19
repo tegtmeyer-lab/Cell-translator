@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cell-translator"
+version = "1.0.0"
+description = "HurdleAE + latent-space CycleGAN framework for single-cell state translation"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy",
+  "torch",
+  "tensorflow",
+  "scikit-learn",
+  "matplotlib",
+  "PyYAML",
+]
+
+[tool.setuptools.packages.find]
+include = ["cell_translator*"]
