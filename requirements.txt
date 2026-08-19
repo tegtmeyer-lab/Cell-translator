@@ -1,4 +1,6 @@
-# Required packages
+# Required packages. Pin to the original analysis versions if an archived
+# environment specification is available; the source notebooks did not record
+# all package-version numbers.
 numpy
 pandas
 scipy
