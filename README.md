@@ -16,10 +16,13 @@ cell_translator/
 ├── models/
 │   ├── hurdle_ae.py
 │   ├── perturbation_hurdle_ae.py
+│   ├── independent_hurdle_ae.py
 │   └── cyclegan.py
 ├── training/
 │   ├── hurdle_ae_training.py
 │   ├── perturbation_hurdle_ae_training.py
+│   ├── independent_hurdle_ae_training.py
+│   ├── acute_leukemia_cyclegan_training.py
 │   └── cyclegan_training.py
 ├── inference/
 │   ├── translate.py
@@ -78,6 +81,15 @@ The pancreatic application reproduces NGN3-high endocrine progenitor →
 Endocrine translation in GSE132188 using the final 5,003-gene input.
 
 See [`applications/pancreatic_endocrine/README.md`](applications/pancreatic_endocrine/README.md).
+
+### Acute leukemia
+
+The acute leukemia application contains two workflows: healthy CD34+ -> BMMC
+differentiation and CD34+ -> MPAL leukemia transformation. It preserves the
+independent-state HurdleAE and historical acute-leukemia CycleGAN training
+variant used in the source analyses.
+
+See [`applications/acute_leukemia/README.md`](applications/acute_leukemia/README.md).
 
 ## Paths and data
 
