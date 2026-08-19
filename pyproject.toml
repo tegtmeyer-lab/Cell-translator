@@ -9,11 +9,16 @@ description = "HurdleAE + latent-space CycleGAN framework for single-cell state 
 requires-python = ">=3.10"
 dependencies = [
   "numpy",
-  "torch",
-  "tensorflow",
+  "pandas",
+  "scipy",
+  "statsmodels",
   "scikit-learn",
   "matplotlib",
   "PyYAML",
+  "torch",
+  "tensorflow",
+  "scanpy",
+  "umap-learn",
 ]
 
 [tool.setuptools.packages.find]

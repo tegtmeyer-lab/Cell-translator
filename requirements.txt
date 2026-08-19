@@ -1,7 +1,14 @@
-# Replace with the exact package versions used for the manuscript run before archival release.
+# Required packages. Pin to the original analysis versions if an archived
+# environment specification is available; the source notebooks did not record
+# all package-version numbers.
 numpy
-torch
-tensorflow
+pandas
+scipy
+statsmodels
 scikit-learn
 matplotlib
 PyYAML
+torch
+tensorflow
+scanpy
+umap-learn
