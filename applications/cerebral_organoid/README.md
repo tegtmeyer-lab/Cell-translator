@@ -6,7 +6,7 @@ This application evaluates Cell Translator on three independent scRNA-seq cerebr
 
 | Dataset configuration | HVGs | Source | Target |
 |---|---:|---|---|
-| `primary_scp1756.yaml` | 15,000 | 2 months | 6 months |
+| `primary_scp1756.yaml` | 5,000 | 2 months | 6 months |
 | `hnoca_he.yaml` | 5,000 | 15 days | 60 days |
 | `third_organoid.yaml` | 5,000 | 18 days | 61 days |
 
