@@ -1,9 +1,4 @@
-"""Canonical Cell Translator hyperparameters used in the manuscript analyses.
-
-These values are extracted unchanged from the reviewer-ready reference script.
-Application-specific data paths, states, and evaluation settings belong in YAML
-configuration files, not here.
-"""
+"""Cell Translator hyperparameters used in this analyses."""
 
 SEED = 42
 DROPOUT = 0.10
