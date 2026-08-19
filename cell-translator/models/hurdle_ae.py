@@ -1,7 +1,4 @@
-"""Hurdle Autoencoder architecture.
-
-Extracted without scientific changes from the reviewer-ready reference script.
-"""
+"""Hurdle Autoencoder architecture"""
 
 import torch
 import torch.nn as nn
