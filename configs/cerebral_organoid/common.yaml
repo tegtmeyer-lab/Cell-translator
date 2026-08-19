@@ -1,0 +1,70 @@
+# Shared model/training settings used by the three organoid maturation datasets.
+model:
+  latent_dim: 128
+  dropout: 0.10
+
+hurdle_ae:
+  seed: 42
+  batch_size: 128
+  lr: 0.0005
+  epochs: 300
+  patience: 25
+  min_delta: 0.0001
+  validation_fraction: 0.20
+  thr: 0.000001
+  input_drop_prob: 0.05
+  lambda_bce: 1.0
+  lambda_mag: 5.0
+  lambda_fp: 2.0
+  lambda_soft: 0.5
+  huber_beta: 0.1
+  alpha_tail: 1.0
+  tail_clip: 6.0
+  grad_clip: 1.0
+  weight_decay: 0.0001
+  scheduler_factor: 0.5
+  scheduler_patience: 5
+  pos_weight_clip_max: 50.0
+  inference_batch_size: 256
+  # Historical organoid notebook: masked_mean + eps.
+  masked_smooth_l1_eps_mode: additive
+
+cyclegan:
+  batch_size: 32
+  epochs: 300
+  gp_weight: 10.0
+  drift_eps: 0.001
+  k_pair: 5
+  bank_sample: 8192
+  lambda_sup: 0.0
+  lambda_cycle: 5.0
+  lambda_identity: 0.5
+  pair_w: 1.0
+  mmd_w: 1.0
+  cov_w: 0.2
+  mom_w: 2.0
+  n_critic: 5
+  lr_initial: 0.0001
+  lr_decay_steps: 10000
+  lr_decay_rate: 0.9
+  adam_beta1: 0.5
+  clipnorm: 1.0
+  mnn_every: 10
+  mnn_pool: 4000
+  mmd_sigmas: [1.0, 2.0, 4.0]
+  # Historical organoid notebook: abs(std_fake - std_real + eps).
+  moment_eps_mode: difference
+  source_shuffle_buffer: 4096
+  target_shuffle_buffer: 4096
+  steps_per_epoch_from: target
+  mnn_target_replace: false
+  # TensorFlow was not explicitly seeded in the original notebook.
+  tf_seed: null
+
+translation:
+  # Reported validation translated held-out source cells, not all source cells.
+  split: validation
+
+evaluation:
+  threshold: 0.000001
+  seed: 42

@@ -1,0 +1,56 @@
+primary_scp1756:
+  prepared_data:
+    source_shape: [39299, 15000]
+    target_shape: [123765, 15000]
+    combined_model_cells: 163064
+  hurdle_ae:
+    best_epoch: 60
+    best_validation_loss: 10.1739
+    early_stopping_epoch: 85
+  translated_validation:
+    translated_cells: 7860
+    real_target_validation_cells: 24753
+  metrics:
+    gene_mean_pearson_r: {value: 0.9583, tolerance: 0.002}
+    detection_rate_pearson_r: {value: 0.9481, tolerance: 0.002}
+    median_ks: {value: 0.0011, tolerance: 0.001}
+    real_zero_fraction: {value: 0.9295, tolerance: 0.001}
+    translated_zero_fraction: {value: 0.9221, tolerance: 0.002}
+    historical_effect_pearson_r: {value: 0.9908, tolerance: 0.003}
+  interpretability:
+    ig_top_gene: FAM162A
+    genes_passing_final_detection_filter: 2286
+    category_counts:
+      Low Both: 1305
+      Large Movers: 409
+      Sensitive Regulators: 409
+      Key Translation Genes: 163
+    high_driver_after_mito_ribo_removal: 562
+    high_ig_after_mito_ribo_removal: 533
+    intersection_after_mito_ribo_removal: 154
+
+hnoca_he:
+  preparation:
+    selected_cell_counts:
+      15d: 45489
+      30d: 63264
+      60d: 242099
+      90d: 71380
+      120d: 123719
+      150d: 6381
+      180d: 74417
+    n_hvg: 5000
+    model_pair: [15d, 60d]
+
+third_organoid:
+  preparation:
+    selected_cell_counts:
+      4d: 982
+      9d: 1671
+      12d: 5184
+      18d: 9319
+      21d: 8457
+      61d: 8428
+    combined_selected_cells: 34041
+    n_hvg: 5000
+    model_pair: [18d, 61d]

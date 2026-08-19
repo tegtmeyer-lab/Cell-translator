@@ -1,0 +1,20 @@
+common_config: common.yaml
+dataset_name: HNOCA/He cerebral organoid maturation (15 days to 60 days)
+run_name: shared_hurdleAE_organoid_15d_60d
+source_state: 15d
+target_state: 60d
+
+paths:
+  prepared_dir: path/to/prepared/hnoca_he
+  output_dir: path/to/results/hnoca_he
+
+preparation:
+  input_type: h5ad_age
+  input_h5ad: path/to/hnoca_cleaned_metadata.h5ad
+  age_column: organoid_age_days
+  selected_ages_days: [15, 30, 60, 90, 120, 150, 180]
+  hvg_flavor: seurat_v3
+  n_hvg: 5000
+
+interpretability:
+  enabled: false
