@@ -64,6 +64,21 @@ See [`applications/genetic_perturbation/README.md`](applications/genetic_perturb
 for preparation, archived-model reproduction, retraining, evaluation,
 interpretation, baseline comparison, and result-validation commands.
 
+
+### Cerebral organoid maturation
+
+The organoid application contains one shared maturation workflow with three
+dataset-specific preparation/configuration files.
+
+See [`applications/cerebral_organoid/README.md`](applications/cerebral_organoid/README.md).
+
+### Pancreatic endocrine differentiation
+
+The pancreatic application reproduces NGN3-high endocrine progenitor →
+Endocrine translation in GSE132188 using the final 5,003-gene input.
+
+See [`applications/pancreatic_endocrine/README.md`](applications/pancreatic_endocrine/README.md).
+
 ## Paths and data
 
 Tracked YAML files contain placeholder paths only. No machine-specific,
