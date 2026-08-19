@@ -11,7 +11,7 @@ paths:
 preparation:
   input_type: mtx_series
   hvg_flavor: seurat_v3
-  n_hvg: 15000
+  n_hvg: 5000
   # Inputs are the normalized expression matrices used in the source analysis.
   # HVGs are selected jointly across all six maturation timepoints.
   timepoints:
