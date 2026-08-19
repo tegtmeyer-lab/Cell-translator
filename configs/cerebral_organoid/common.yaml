@@ -58,7 +58,7 @@ cyclegan:
   target_shuffle_buffer: 4096
   steps_per_epoch_from: target
   mnn_target_replace: false
-  # TensorFlow was not explicitly seeded in the original notebook.
+
   tf_seed: null
 
 translation:
