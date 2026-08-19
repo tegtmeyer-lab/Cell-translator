@@ -1,4 +1,4 @@
-"""Input validation and reviewer-facing diagnostic summaries."""
+"""Input validation and diagnostic summaries."""
 
 from typing import Optional
 import numpy as np
