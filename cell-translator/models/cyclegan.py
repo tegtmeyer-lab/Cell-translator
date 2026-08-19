@@ -1,6 +1,7 @@
 """CycleGAN generator and critic architectures.
 
-Extracted without scientific changes from the reviewer-ready reference script.
+This module contains the shared CycleGAN generator and critic architectures
+used across Cell Translator applications and preserves the model structure.
 """
 
 from tensorflow.keras import layers, models
