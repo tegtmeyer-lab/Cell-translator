@@ -1,0 +1,91 @@
+common_config: common.yaml
+dataset_name: GSE132188 pancreatic endocrine differentiation (NGN3-high EP to Endocrine)
+run_name: shared_hurdleAE_pancreas_NGN3_Endocrine
+source_state: NGN3
+target_state: Endocrine
+paths:
+  prepared_dir: path/to/prepared/pancreatic_endocrine
+  output_dir: path/to/results/pancreatic_endocrine
+preparation:
+  input_h5ad: path/to/GSE132188_adata.h5ad
+  cluster_column: clusters_fig3_final
+  day_column: day
+  source_cluster_label: Ngn3 high EP
+  source_day_max: 14.5
+  target_cluster_label: Endocrine
+  target_day_min: 14.5
+  hvg_flavor: seurat
+  n_hvg_base: 5000
+  force_include_markers:
+  - Ins1
+  - Ins2
+  - Gcg
+  - Sst
+  - Ppy
+  - Neurod1
+  - Nkx6-1
+  - Pdx1
+  - Neurog3
+  - Arx
+  - Pax4
+  - MafA
+  - MafB
+  - Nkx2-2
+  - Isl1
+  - Pcsk1
+  - Chga
+  - Chgb
+  - Pax6
+  - Insm1
+  - Kcnj11
+  - Abcc8
+  - Slc2a2
+  - G6pc2
+  expected_force_added_markers:
+  - Gcg
+  - Chgb
+  - Kcnj11
+  expected_final_gene_count: 5003
+  expected_cell_counts:
+    source: 1861
+    target: 2621
+log2fc:
+  filtered_reported:
+    top_n: 50
+    expression_threshold: 0.1
+    detection_fraction_threshold: 0.05
+    pseudocount: 0.1
+    log2fc_cap: 6.0
+    linear_clip_max: 20.0
+  all_gene_secondary:
+    pseudocount: 0.001
+    log_base: e
+    filter_mode: detect
+    detection_threshold: 0.0
+    visualization_detection_min: 0.01
+  display_markers:
+  - Ins2
+  - Gcg
+  - Sst
+  - Ppy
+  - Neurod1
+  - Nkx6-1
+  - Pdx1
+  - Neurog3
+interpretability:
+  enabled: true
+  seed: 42
+  ig_steps: 64
+  ig_max_samples: 1024
+  ig_batch_size: 16
+  baseline: mean
+  driver_eps: 1.0e-08
+  lfc_clip: 6.0
+  detection_threshold: 1.0e-06
+  min_detection_fraction: 0.1
+  category_quantile: 0.75
+atlas_projection:
+  umap_key: X_umap
+  n_neighbors: 15
+  metric: euclidean
+  n_jobs: -1

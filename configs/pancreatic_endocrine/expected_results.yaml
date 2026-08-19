@@ -1,0 +1,155 @@
+ngn3_to_endocrine:
+  prepared_data:
+    source_shape:
+    - 1861
+    - 5003
+    target_shape:
+    - 2621
+    - 5003
+    combined_model_cells: 4482
+    base_hvg_count: 5000
+    force_added_markers:
+    - Gcg
+    - Chgb
+    - Kcnj11
+  hurdle_ae:
+    training_cells: 3585
+    validation_cells: 897
+    model_parameters: 8044118
+    best_epoch: 27
+    best_validation_loss: 4.7999
+    early_stopping_epoch: 52
+    source_hard_zero_fraction: 0.8132301704415288
+    target_hard_zero_fraction: 0.8108137025453557
+    source_detection_rate_correlation: 0.9998
+    target_detection_rate_correlation: 0.9998
+  translation:
+    source_train_shape:
+    - 1489
+    - 64
+    source_validation_shape:
+    - 372
+    - 64
+    target_train_shape:
+    - 2096
+    - 64
+    target_validation_shape:
+    - 525
+    - 64
+    steps_per_epoch: 65
+    forward_generator_parameters: 895104
+    backward_generator_parameters: 890944
+    target_critic_parameters: 197633
+    source_critic_parameters: 197633
+  translation_metrics:
+    n_real_target_validation_cells:
+      value: 525
+      tolerance: 0
+    n_translated_source_validation_cells:
+      value: 372
+      tolerance: 0
+    latent_mean_pearson_r:
+      value: 0.9858
+      tolerance: 0.002
+    latent_std_pearson_r:
+      value: 0.917
+      tolerance: 0.004
+    latent_mean_wasserstein:
+      value: 0.0716
+      tolerance: 0.003
+    latent_mean_cosine_similarity:
+      value: 0.9849
+      tolerance: 0.003
+    latent_mean_l2:
+      value: 0.591
+      tolerance: 0.02
+    latent_mean_mae:
+      value: 0.0597
+      tolerance: 0.003
+    latent_std_l2:
+      value: 0.424
+      tolerance: 0.02
+    latent_std_mae:
+      value: 0.0384
+      tolerance: 0.003
+    latent_std_relative_mae:
+      value: 0.087
+      tolerance: 0.006
+    real_target_zero_fraction:
+      value: 0.8096
+      tolerance: 0.002
+    translated_zero_fraction:
+      value: 0.8251
+      tolerance: 0.003
+    median_gene_ks:
+      value: 0.0565
+      tolerance: 0.003
+    median_gene_wasserstein:
+      value: 0.0374
+      tolerance: 0.003
+    median_abs_gene_mean_difference:
+      value: 0.0279
+      tolerance: 0.003
+    fraction_gene_ks_lt_0_05:
+      value: 0.475
+      tolerance: 0.02
+    fraction_gene_ks_gt_0_20:
+      value: 0.06
+      tolerance: 0.015
+    fraction_gene_ks_gt_0_40:
+      value: 0.0
+      tolerance: 0.005
+    high_ks_gene_count_gt_0_30:
+      value: 46
+      tolerance: 5
+  log2fc_filtered_reported:
+    total_genes: 5003
+    finite_genes: 5003
+    genes_after_expression_filter: 3530
+    genes_after_detection_filter: 3505
+    pearson_r: 0.9875
+    sign_accuracy: 0.8314
+  interpretability:
+    ig_top_gene: Mcm5
+    ig_top_value: 0.03248
+    genes_passing_detection_filter: 2149
+    category_counts:
+      Low Both: 1226
+      Large Movers: 385
+      Sensitive Regulators: 385
+      Key Translation Genes: 153
+    mito_ribo_removed: 32
+    remaining_after_mito_ribo_removal: 2117
+    driver_ig_pearson_r: 0.07
+    driver_ig_pvalue: 0.0013
+    high_driver: 534
+    high_ig: 519
+    intersection: 151
+    top_key_translation_genes:
+    - Sparc
+    - Krtap17-1
+    - Rbp1
+    - Fscn1
+    - Prom1
+    - Spp1
+    - Mmp14
+    - Enc1
+    - Wfdc15b
+    - Apoc1
+    - Gadd45a
+    - Pax4
+    - Neurog3
+    - Rab15
+    - Grasp
+  atlas_projection:
+    measured_target_centroid:
+    - 8.815
+    - 0.378
+    translated_centroid:
+    - 9.215
+    - 0.189
+    top_neighbor_label_counts:
+      Endocrine: 5227
+      Fev+: 349
+      Ngn3 high EP: 3
+      Prlf. Tip: 1
