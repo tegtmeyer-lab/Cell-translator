@@ -1,7 +1,8 @@
 """HurdleAE loss, training, calibration, and shared-run orchestration.
 
-The scientific implementation is extracted from the reviewer-ready reference
-script; only module imports were reorganized.
+This module contains the shared HurdleAE implementation used across
+Cell Translator applications, including training, latent-space inference,
+gene-wise detection-threshold calibration, and model output management.
 """
 
 import os
