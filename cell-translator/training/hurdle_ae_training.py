@@ -1,13 +1,15 @@
 """HurdleAE loss, training, calibration, and shared-run orchestration.
 
 This module contains the shared HurdleAE implementation used across
-Cell Translator applications, including training, latent-space inference,
-gene-wise detection-threshold calibration, and model output management.
+Cell Translator applications and preserves the model architecture, loss
+functions, calibration procedure, and training workflow used in the
+reported analyses.
 """
 
 import os
 import copy
-from typing import Dict, Any, List
+from dataclasses import asdict, dataclass, replace
+from typing import Dict, Any, List, Optional
 
 import numpy as np
 import torch
@@ -22,6 +24,51 @@ from cell_translator.utils.validation import (
     validate_expression_matrix, basic_stats, check_mag_scale,
     check_latent_separation, check_hard_decode_quality,
 )
+
+
+
+@dataclass(frozen=True)
+class HurdleAETrainingConfig:
+    """Shared HurdleAE training settings with canonical defaults.
+
+    Applications may override only parameters that differed in the reported
+    analysis while retaining the same shared HurdleAE architecture and training
+    implementation.
+    """
+
+    batch_size: int = BATCH_SIZE
+    lr: float = LR
+    epochs: int = EPOCHS
+    patience: int = PATIENCE
+    min_delta: float = MIN_DELTA
+    thr: float = THR
+    input_drop_prob: float = INPUT_DROP_PROB
+    lambda_bce: float = LAMBDA_BCE
+    lambda_mag: float = LAMBDA_MAG
+    lambda_fp: float = LAMBDA_FP
+    lambda_soft: float = LAMBDA_SOFT
+    huber_beta: float = HUBER_BETA
+    alpha_tail: float = ALPHA_TAIL
+    tail_clip: float = TAIL_CLIP
+    grad_clip: float = 1.0
+    weight_decay: float = 1e-4
+    scheduler_factor: float = 0.5
+    scheduler_patience: int = 5
+    validation_fraction: float = 0.2
+    pos_weight_clip_max: float = 50.0
+    inference_batch_size: int = 256
+    masked_smooth_l1_eps_mode: str = "denominator"
+    seed: int = SEED
+
+    @classmethod
+    def from_dict(cls, values: Optional[Dict[str, Any]] = None):
+        if not values:
+            return cls()
+        fields = cls.__dataclass_fields__
+        unknown = set(values) - set(fields)
+        if unknown:
+            raise KeyError(f"Unknown HurdleAE settings: {sorted(unknown)}")
+        return cls(**dict(values))
 
 def corrupt_nonzero_entries(x: torch.Tensor, drop_prob: float = 0.05) -> torch.Tensor:
     """Denoising: randomly zero out some expressed entries during training."""
@@ -58,14 +105,24 @@ def compute_pos_weight_per_gene(
     return torch.from_numpy(pw)
 
 def masked_smooth_l1(
-    pred, target, mask, beta=0.1, alpha_tail=1.0, tail_clip=6.0, eps=1e-8
+    pred, target, mask, beta=0.1, alpha_tail=1.0, tail_clip=6.0, eps=1e-8,
+    eps_mode: str = "denominator",
 ):
-    """SmoothL1 loss computed only on nonzero entries, with tail upweighting."""
+    """SmoothL1 loss on nonzero entries with the recorded epsilon convention.
+
+    ``denominator`` is the canonical implementation used by the neuronal
+    workflow. ``additive`` preserves the historical organoid notebook formula,
+    where epsilon was added after the masked mean.
+    """
     l = F.smooth_l1_loss(pred, target, reduction="none", beta=beta)
     w_tail = 1.0 + alpha_tail * torch.clamp(target, max=tail_clip)
     l = l * w_tail
     denom = mask.sum().clamp_min(1.0)
-    return (l * mask).sum() / (denom + eps)
+    if eps_mode == "denominator":
+        return (l * mask).sum() / (denom + eps)
+    if eps_mode == "additive":
+        return (l * mask).sum() / denom + eps
+    raise ValueError("eps_mode must be 'denominator' or 'additive'.")
 
 def hurdle_loss(
     logits, p, mag, x_true,
@@ -78,6 +135,7 @@ def hurdle_loss(
     huber_beta=0.1,
     alpha_tail=1.0,
     tail_clip=6.0,
+    masked_smooth_l1_eps_mode="denominator",
 ):
     mask = (x_true > thr).float()    # 1 where expressed
     zmask = 1.0 - mask                # 1 where zero
@@ -92,7 +150,8 @@ def hurdle_loss(
     # 2. Magnitude fidelity: mag should match expression on nonzeros
     mag_nz = masked_smooth_l1(
         mag, x_true, mask,
-        beta=huber_beta, alpha_tail=alpha_tail, tail_clip=tail_clip
+        beta=huber_beta, alpha_tail=alpha_tail, tail_clip=tail_clip,
+        eps_mode=masked_smooth_l1_eps_mode,
     )
 
     # 3. False positive penalty: push p LOW on true zeros
@@ -121,10 +180,14 @@ def train_shared_hurdle_ae(
     alpha_tail=1.0,
     tail_clip=6.0,
     grad_clip=1.0,
+    weight_decay=1e-4,
+    scheduler_factor=0.5,
+    scheduler_patience=5,
+    masked_smooth_l1_eps_mode="denominator",
 ):
-    opt = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-4)
+    opt = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
     sched = torch.optim.lr_scheduler.ReduceLROnPlateau(
-        opt, mode="min", factor=0.5, patience=5
+        opt, mode="min", factor=scheduler_factor, patience=scheduler_patience
     )
 
     best_val = float("inf")
@@ -150,6 +213,7 @@ def train_shared_hurdle_ae(
                 lambda_bce=lambda_bce, lambda_mag=lambda_mag,
                 lambda_fp=lambda_fp, lambda_soft=lambda_soft,
                 huber_beta=huber_beta, alpha_tail=alpha_tail, tail_clip=tail_clip,
+                masked_smooth_l1_eps_mode=masked_smooth_l1_eps_mode,
             )
 
             opt.zero_grad(set_to_none=True)
@@ -262,6 +326,7 @@ def run_shared_hurdle_ae(
     save_dir: str,
     run_name: str,
     latent_dim: int,
+    training_config: HurdleAETrainingConfig | Dict[str, Any] | None = None,
 ) -> Dict[str, Any]:
     """
     Train a shared HurdleAE across the given cell states and save its
@@ -273,7 +338,14 @@ def run_shared_hurdle_ae(
     which states/paths/latent_dim were used, so that varying configuration
     is now passed in as arguments instead of being copy-pasted.
     """
-    set_torch_seed(SEED)
+    if training_config is None:
+        cfg = HurdleAETrainingConfig()
+    elif isinstance(training_config, dict):
+        cfg = HurdleAETrainingConfig.from_dict(training_config)
+    else:
+        cfg = training_config
+
+    set_torch_seed(int(cfg.seed))
     os.makedirs(save_dir, exist_ok=True)
     out_prefix = os.path.join(save_dir, run_name)
 
@@ -304,18 +376,18 @@ def run_shared_hurdle_ae(
 
     X_all = np.concatenate(X_list, axis=0).astype(np.float32)
     y_all = np.concatenate(y_list, axis=0).astype(str)
-    basic_stats(X_all, "X_all", thr=THR)
+    basic_stats(X_all, "X_all", thr=cfg.thr)
 
     # ---- stratified train/validation split ----
     # The 20% subset is used for HurdleAE early stopping and is therefore
     # correctly termed validation rather than an independent test set.
     idx_all = np.arange(X_all.shape[0])
     tr_idx, val_idx = train_test_split(
-        idx_all, test_size=0.2, random_state=SEED, shuffle=True, stratify=y_all
+        idx_all, test_size=cfg.validation_fraction, random_state=cfg.seed, shuffle=True, stratify=y_all
     )
     X_train, X_val = X_all[tr_idx], X_all[val_idx]
-    basic_stats(X_train, "X_train", thr=THR)
-    basic_stats(X_val, "X_val", thr=THR)
+    basic_stats(X_train, "X_train", thr=cfg.thr)
+    basic_stats(X_val, "X_val", thr=cfg.thr)
 
     # ---- model ----
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -324,17 +396,17 @@ def run_shared_hurdle_ae(
     ).to(device)
     print(f"\nModel parameters: {sum(p.numel() for p in model.parameters()):,}")
 
-    pos_weight_gene = compute_pos_weight_per_gene(X_train, thr=THR, clip_max=50.0)
+    pos_weight_gene = compute_pos_weight_per_gene(X_train, thr=cfg.thr, clip_max=cfg.pos_weight_clip_max)
 
     # ---- loaders ----
     train_dl = DataLoader(
         NumpyExpressionDataset(X_train),
-        batch_size=BATCH_SIZE, shuffle=True, drop_last=False,
+        batch_size=cfg.batch_size, shuffle=True, drop_last=False,
         num_workers=0, pin_memory=(device.type == "cuda")
     )
     val_dl = DataLoader(
         NumpyExpressionDataset(X_val),
-        batch_size=BATCH_SIZE, shuffle=False, drop_last=False,
+        batch_size=cfg.batch_size, shuffle=False, drop_last=False,
         num_workers=0, pin_memory=(device.type == "cuda")
     )
 
@@ -342,15 +414,18 @@ def run_shared_hurdle_ae(
     hist = train_shared_hurdle_ae(
         model=model, train_dl=train_dl, val_dl=val_dl,
         device=device, pos_weight_gene=pos_weight_gene,
-        epochs=EPOCHS, lr=LR, patience=PATIENCE, min_delta=MIN_DELTA,
-        input_drop_prob=INPUT_DROP_PROB, thr=THR,
-        lambda_bce=LAMBDA_BCE, lambda_mag=LAMBDA_MAG,
-        lambda_fp=LAMBDA_FP, lambda_soft=LAMBDA_SOFT,
-        huber_beta=HUBER_BETA, alpha_tail=ALPHA_TAIL, tail_clip=TAIL_CLIP,
+        epochs=cfg.epochs, lr=cfg.lr, patience=cfg.patience, min_delta=cfg.min_delta,
+        input_drop_prob=cfg.input_drop_prob, thr=cfg.thr,
+        lambda_bce=cfg.lambda_bce, lambda_mag=cfg.lambda_mag,
+        lambda_fp=cfg.lambda_fp, lambda_soft=cfg.lambda_soft,
+        huber_beta=cfg.huber_beta, alpha_tail=cfg.alpha_tail, tail_clip=cfg.tail_clip,
+        grad_clip=cfg.grad_clip, weight_decay=cfg.weight_decay,
+        scheduler_factor=cfg.scheduler_factor, scheduler_patience=cfg.scheduler_patience,
+        masked_smooth_l1_eps_mode=cfg.masked_smooth_l1_eps_mode,
     )
 
     # ---- infer on all cells ----
-    Z_all, P_all, MAG_all = infer_z_p_mag(model, X_all, device, batch_size=256)
+    Z_all, P_all, MAG_all = infer_z_p_mag(model, X_all, device, batch_size=cfg.inference_batch_size)
     assert Z_all.shape[0] == X_all.shape[0], \
         f"Shape mismatch: Z_all={Z_all.shape[0]} vs X_all={X_all.shape[0]}"
 
@@ -358,7 +433,7 @@ def run_shared_hurdle_ae(
     Z_val_lat = Z_all[val_idx]
 
     # ---- sanity checks ----
-    check_mag_scale(MAG_all, X_all, thr=THR)
+    check_mag_scale(MAG_all, X_all, thr=cfg.thr)
     check_latent_separation(Z_all, slices, state_names)
 
     # ---- standardization stats for CycleGAN ----
@@ -379,15 +454,15 @@ def run_shared_hurdle_ae(
             print(f"[WARN] {k}: too few train cells ({idx_state_tr.size}) for tau calibration")
             continue
 
-        tau_k = calibrate_tau_gene(P_all[idx_state_tr], X_all[idx_state_tr], thr=THR)
+        tau_k = calibrate_tau_gene(P_all[idx_state_tr], X_all[idx_state_tr], thr=cfg.thr)
         tau_gene_states[k] = tau_k
 
         X_hard_k = hard_decode(P_all[idx_state], MAG_all[idx_state], tau_k)
-        check_hard_decode_quality(X_hard_k, X_all[idx_state], name=k, thr=THR)
+        check_hard_decode_quality(X_hard_k, X_all[idx_state], name=k, thr=cfg.thr)
 
         hard_states_stats[k] = {
-            "zero_frac": float((X_hard_k <= THR).mean()),
-            "median_gene_zero": float(np.median((X_hard_k <= THR).mean(axis=0))),
+            "zero_frac": float((X_hard_k <= cfg.thr).mean()),
+            "median_gene_zero": float(np.median((X_hard_k <= cfg.thr).mean(axis=0))),
             "median_rowsum": float(np.median(X_hard_k.sum(axis=1))),
         }
 
@@ -398,14 +473,16 @@ def run_shared_hurdle_ae(
     torch.save({
         "model_state_dict": model.state_dict(),
         "config": {
-            "datasets": x_paths, "seed": SEED,
+            "datasets": x_paths, "seed": int(cfg.seed),
             "input_dim": X_all.shape[1], "latent_dim": latent_dim, "dropout": DROPOUT,
-            "batch_size": BATCH_SIZE, "lr": LR,
-            "epochs": EPOCHS, "patience": PATIENCE, "thr": THR,
+            "training": asdict(cfg),
+            "batch_size": cfg.batch_size, "lr": cfg.lr,
+            "epochs": cfg.epochs, "patience": cfg.patience, "thr": cfg.thr,
             "loss": {
-                "lambda_bce": LAMBDA_BCE, "lambda_mag": LAMBDA_MAG,
-                "lambda_fp": LAMBDA_FP, "lambda_soft": LAMBDA_SOFT,
-                "huber_beta": HUBER_BETA, "alpha_tail": ALPHA_TAIL, "tail_clip": TAIL_CLIP,
+                "lambda_bce": cfg.lambda_bce, "lambda_mag": cfg.lambda_mag,
+                "lambda_fp": cfg.lambda_fp, "lambda_soft": cfg.lambda_soft,
+                "huber_beta": cfg.huber_beta, "alpha_tail": cfg.alpha_tail, "tail_clip": cfg.tail_clip,
+                "masked_smooth_l1_eps_mode": cfg.masked_smooth_l1_eps_mode,
             }
         },
         "history": hist,
@@ -445,4 +522,5 @@ def run_shared_hurdle_ae(
         "mean_z_train": mean_z, "std_z_train": std_z,
         "checkpoint_path": ckpt_path,
         "outputs_npz_path": out_npz,
+        "training_config": asdict(cfg),
     }
