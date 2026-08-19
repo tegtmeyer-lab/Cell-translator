@@ -1,0 +1,45 @@
+base_config: common.yaml
+gene: NR1H3
+target_state: NR1H3
+data:
+  control_expression: path/to/prepared/genetic_perturbation/control.npy
+  target_expression: path/to/prepared/genetic_perturbation/nr1h3.npy
+  gene_names: path/to/prepared/genetic_perturbation/gene_names.npy
+outputs:
+  directory: path/to/results/genetic_perturbation/NR1H3
+archived_artifacts:
+  ae_checkpoint: path/to/archived/NR1H3/perturbation_hurdle_ae_NR1H3_best.pt
+  ae_outputs: path/to/archived/NR1H3/perturbation_hurdle_ae_NR1H3_outputs.npz
+  forward_generator: path/to/archived/NR1H3/G_control_to_nr1h3.keras
+  training_history: path/to/archived/NR1H3/training_histories.npy
+expected_input:
+  control_cells: 10529
+  target_cells: 681
+  genes: 18614
+notebook_stage1_reference:
+  best_epoch: 90
+  best_validation_loss: 7.66
+markers_used_in_combined_comparison:
+- NR1H3
+- ABCA1
+- ABCG1
+- HMGCR
+- LDLR
+- FASN
+- SCD
+- SREBF1
+- APOE
+- CLU
+markers_used_in_single_perturbation_suite:
+- NR1H3
+- NR1H2
+- ABCA1
+- ABCG1
+- APOE
+- FASN
+- SREBF1
+- IDOL
+- CYP27A1
+- CH25H
+- MAP2
+- TUBB3

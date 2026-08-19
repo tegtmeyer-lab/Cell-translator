@@ -1,0 +1,44 @@
+base_config: common.yaml
+gene: MSI2
+target_state: MSI2
+data:
+  control_expression: path/to/prepared/genetic_perturbation/control.npy
+  target_expression: path/to/prepared/genetic_perturbation/msi2.npy
+  gene_names: path/to/prepared/genetic_perturbation/gene_names.npy
+outputs:
+  directory: path/to/results/genetic_perturbation/MSI2
+archived_artifacts:
+  ae_checkpoint: path/to/archived/MSI2/perturbation_hurdle_ae_MSI2_best.pt
+  ae_outputs: path/to/archived/MSI2/perturbation_hurdle_ae_MSI2_outputs.npz
+  forward_generator: path/to/archived/MSI2/G_control_to_msi2.keras
+  training_history: path/to/archived/MSI2/training_histories.npy
+expected_input:
+  control_cells: 10529
+  target_cells: 684
+  genes: 18614
+notebook_stage1_reference:
+  best_epoch: 64
+  best_validation_loss: 6.6833
+markers_used_in_combined_comparison:
+- MSI2
+- NUMB
+- NOTCH1
+- HES1
+- SOX2
+- NES
+- DCX
+- TUBB3
+- MAP2
+- GFAP
+markers_used_in_single_perturbation_suite:
+- MSI2
+- NUMB
+- MSI1
+- NOTCH1
+- LIN28A
+- HMGA2
+- MYC
+- MAP2
+- TUBB3
+- SYP
+- SNAP25

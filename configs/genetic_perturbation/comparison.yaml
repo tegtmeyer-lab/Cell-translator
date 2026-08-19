@@ -1,0 +1,48 @@
+# Placeholder-only paths for the final cross-model comparison.
+output_dir: "path/to/results/genetic_perturbation/model_comparison"
+threshold: 1.0e-6
+top_de_genes: 5000
+ks_bad_threshold: 0.20
+models: [CellTranslator, scGEN, CellOT, scGPT]
+
+perturbations:
+  NR1H3:
+    control: "path/to/prepared/control.npy"
+    real: "path/to/prepared/nr1h3.npy"
+    predictions:
+      CellTranslator: "path/to/predictions/NR1H3/celltranslator.npy"
+      scGEN: "path/to/predictions/NR1H3/scgen.npy"
+      CellOT: "path/to/predictions/NR1H3/cellot.npy"
+      scGPT: "path/to/predictions/NR1H3/scgpt.npy"
+  LRRC4C:
+    control: "path/to/prepared/control.npy"
+    real: "path/to/prepared/lrrc4c.npy"
+    predictions:
+      CellTranslator: "path/to/predictions/LRRC4C/celltranslator.npy"
+      scGEN: "path/to/predictions/LRRC4C/scgen.npy"
+      CellOT: "path/to/predictions/LRRC4C/cellot.npy"
+      scGPT: "path/to/predictions/LRRC4C/scgpt.npy"
+  MSI2:
+    control: "path/to/prepared/control.npy"
+    real: "path/to/prepared/msi2.npy"
+    predictions:
+      CellTranslator: "path/to/predictions/MSI2/celltranslator.npy"
+      scGEN: "path/to/predictions/MSI2/scgen.npy"
+      CellOT: "path/to/predictions/MSI2/cellot.npy"
+      scGPT: "path/to/predictions/MSI2/scgpt.npy"
+  APOE:
+    control: "path/to/prepared/control.npy"
+    real: "path/to/prepared/apoe.npy"
+    predictions:
+      CellTranslator: "path/to/predictions/APOE/celltranslator.npy"
+      scGEN: "path/to/predictions/APOE/scgen.npy"
+      CellOT: "path/to/predictions/APOE/cellot.npy"
+      scGPT: "path/to/predictions/APOE/scgpt.npy"
+  ANKRD12:
+    control: "path/to/prepared/control.npy"
+    real: "path/to/prepared/ankrd12.npy"
+    predictions:
+      CellTranslator: "path/to/predictions/ANKRD12/celltranslator.npy"
+      scGEN: "path/to/predictions/ANKRD12/scgen.npy"
+      CellOT: "path/to/predictions/ANKRD12/cellot.npy"
+      scGPT: "path/to/predictions/ANKRD12/scgpt.npy"

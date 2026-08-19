@@ -1,0 +1,50 @@
+base_config: common.yaml
+gene: LRRC4C
+target_state: LRRC4C
+data:
+  control_expression: path/to/prepared/genetic_perturbation/control.npy
+  target_expression: path/to/prepared/genetic_perturbation/lrrc4c.npy
+  gene_names: path/to/prepared/genetic_perturbation/gene_names.npy
+outputs:
+  directory: path/to/results/genetic_perturbation/LRRC4C
+archived_artifacts:
+  ae_checkpoint: path/to/archived/LRRC4C/perturbation_hurdle_ae_LRRC4C_best.pt
+  ae_outputs: path/to/archived/LRRC4C/perturbation_hurdle_ae_LRRC4C_outputs.npz
+  forward_generator: path/to/archived/LRRC4C/G_control_to_lrrc4c.keras
+  training_history: path/to/archived/LRRC4C/training_histories.npy
+expected_input:
+  control_cells: 10529
+  target_cells: 8828
+  genes: 18614
+notebook_stage1_reference:
+  best_epoch: 27
+  best_validation_loss: 6.7211
+markers_used_in_combined_comparison:
+- LRRC4C
+- NRXN1
+- NRXN3
+- CNTN1
+- ROBO1
+- ROBO2
+- SLIT1
+- SEMA3A
+- EFNA5
+- PTPRD
+markers_used_in_single_perturbation_suite:
+- MAP2
+- TUBB3
+- RBFOX3
+- SYP
+- SNAP25
+- SLC17A7
+- NEFM
+- LRRC4C
+- NTNG1
+- LRRC4
+- LRRC4B
+- DLG4
+- SHANK3
+- HOMER1
+- GRIN2A
+- GRIN2B
+- DLGAP1
