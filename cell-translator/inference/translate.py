@@ -31,7 +31,7 @@ def load_state_pair_latents(
     """
     Load HurdleAE latents and return standardized source/target splits.
 
-    New reviewer-facing NPZ files store state slices explicitly. For backward
+    Current NPZ files store state slices explicitly. For backward
     compatibility with outputs created by the original script, this function
     can reconstruct slices from the input matrices and can read `test_idx` as
     the historical name of the HurdleAE validation subset.
@@ -222,30 +222,7 @@ def save_cyclegan_artifacts(
         "numpy": np.__version__,
         "pytorch": torch.__version__,
         "tensorflow": tf.__version__,
-        "cyclegan_hyperparameters": {
-            "batch_size": CGAN_BATCH_SIZE,
-            "epochs": CGAN_EPOCHS,
-            "gp_weight": GP_WEIGHT,
-            "drift_eps": DRIFT_EPS,
-            "nce_w": NCE_W,
-            "k_pair": K_PAIR,
-            "bank_sample": BANK_SAMPLE,
-            "lambda_sup": LAMBDA_SUP,
-            "lambda_cycle": LAMBDA_CYCLE,
-            "lambda_identity": LAMBDA_IDENTITY,
-            "pair_w": PAIR_W,
-            "mmd_w": MMD_W,
-            "cov_w": COV_W,
-            "mom_w": MOM_W,
-            "n_critic": N_CRITIC,
-            "lr_initial": LR_INITIAL,
-            "lr_decay_steps": LR_DECAY_STEPS,
-            "lr_decay_rate": LR_DECAY_RATE,
-            "adam_beta1": ADAM_BETA1,
-            "clipnorm": CLIPNORM,
-            "mnn_every": MNN_EVERY,
-            "mnn_pool": MNN_POOL,
-        },
+        "cyclegan_hyperparameters": result.get("training_config", {}),
     }
     with open(paths["metadata"], "w", encoding="utf-8") as f:
         json.dump(metadata, f, indent=2)
@@ -261,9 +238,10 @@ def translate_and_decode_source(
     source_state: str,
     target_state: str,
     output_path: str,
+    split: str = "all",
 ) -> str:
     """
-    Apply the trained forward generator to all source cells and decode the
+    Apply the trained forward generator to the requested source split and decode
     translated latent vectors back to target-state gene-expression space.
 
     Translation occurs in standardized latent space. Before HurdleAE decoding,
@@ -271,8 +249,18 @@ def translate_and_decode_source(
     training-latent mean/std saved by Stage 1. Target-state `tau_gene` values
     are then used for the same hard-decoding rule as in HurdleAE reconstruction.
     """
+    split_map = {
+        "all": ("all_src", "source_indices"),
+        "train": ("train_src", "train_src_indices"),
+        "validation": ("val_src", "val_src_indices"),
+        "val": ("val_src", "val_src_indices"),
+        "test": ("val_src", "val_src_indices"),  # historical notebook terminology
+    }
+    if split not in split_map:
+        raise ValueError(f"Unknown translation split '{split}'. Use all/train/validation.")
+    latent_key, index_key = split_map[split]
     translated_z_std = result["G_fwd"](
-        tf.constant(latents["all_src"], dtype=tf.float32), training=False
+        tf.constant(latents[latent_key], dtype=tf.float32), training=False
     ).numpy().astype(np.float32)
 
     mean_z = latents["mean_z_train"]
@@ -300,7 +288,8 @@ def translate_and_decode_source(
         output_path,
         source_state=np.asarray(source_state),
         target_state=np.asarray(target_state),
-        source_indices=latents["source_indices"].astype(np.int64),
+        source_indices=latents[index_key].astype(np.int64),
+        translated_split=np.asarray(split),
         translated_z_standardized=translated_z_std,
         translated_z=translated_z,
         P_translated=P_translated,
@@ -320,8 +309,10 @@ def _run_translation(
     save_dir: str,
     plot: bool,
     title_prefix: str,
+    cyclegan_config: Dict[str, Any] | None = None,
+    translation_split: str = "all",
 ) -> Dict[str, Any]:
-    """Shared reviewer-facing orchestration for one translation direction."""
+    """Shared orchestration for one translation direction."""
     latents = load_state_pair_latents(
         ae_outputs_npz, state_names, source_state, target_state, x_paths
     )
@@ -330,6 +321,7 @@ def _run_translation(
         latents["train_tgt"],
         source_name=source_state,
         target_name=target_state,
+        config=cyclegan_config,
     )
     paths = save_cyclegan_artifacts(
         result, save_dir, source_name=source_state, target_name=target_state
@@ -348,6 +340,7 @@ def _run_translation(
         source_state=source_state,
         target_state=target_state,
         output_path=paths["translated"],
+        split=translation_split,
     )
     result["artifact_paths"] = paths
     return result
@@ -362,6 +355,8 @@ def run_translation(
     save_dir: str,
     plot: bool = True,
     title_prefix: str | None = None,
+    cyclegan_config: Dict[str, Any] | None = None,
+    translation_split: str = "all",
 ) -> Dict[str, Any]:
     """Public application-agnostic wrapper around the preserved translation routine."""
     if title_prefix is None:
@@ -375,4 +370,6 @@ def run_translation(
         save_dir=save_dir,
         plot=plot,
         title_prefix=title_prefix,
+        cyclegan_config=cyclegan_config,
+        translation_split=translation_split,
     )
