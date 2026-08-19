@@ -1,7 +1,7 @@
 """Latent-space WGAN-GP CycleGAN losses and training routine.
 
-The scientific implementation is extracted from the reviewer-ready reference
-script; only module imports were reorganized.
+The implementation is shared across Cell Translator applications and
+preserves the model architecture, loss functions, and training procedure.
 """
 
 import os
