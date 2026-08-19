@@ -111,8 +111,8 @@ def masked_smooth_l1(
     """SmoothL1 loss on nonzero entries with the recorded epsilon convention.
 
     ``denominator`` is the canonical implementation used by the neuronal
-    workflow. ``additive`` preserves the historical organoid notebook formula,
-    where epsilon was added after the masked mean.
+    workflow. ``additive`` preserves the historical organoid and pancreatic notebook
+    formula, where epsilon was added after the masked mean.
     """
     l = F.smooth_l1_loss(pred, target, reduction="none", beta=beta)
     w_tail = 1.0 + alpha_tail * torch.clamp(target, max=tail_clip)
@@ -239,6 +239,7 @@ def train_shared_hurdle_ae(
                     lambda_bce=lambda_bce, lambda_mag=lambda_mag,
                     lambda_fp=lambda_fp, lambda_soft=lambda_soft,
                     huber_beta=huber_beta, alpha_tail=alpha_tail, tail_clip=tail_clip,
+                    masked_smooth_l1_eps_mode=masked_smooth_l1_eps_mode,
                 )
                 v += float(loss.item())
                 zvars.append(float(z.var(dim=0, unbiased=False).mean().item()))
