@@ -1,0 +1,36 @@
+application: neuronal_differentiation
+
+# Placeholder paths only. All matrices must be cells x genes, finite, non-negative,
+# log1p-normalized, and use the same ordered HVG set within a HurdleAE run.
+data:
+  iPSC: path/to/data/ipsc_X_HVG.npy
+  NPC: path/to/data/npc_X_HVG.npy
+  Neuron: path/to/data/neuron_X_HVG.npy
+  Astro: path/to/data/astro_X_HVG.npy
+
+ordered_hvg_file: path/to/data/ordered_hvg_names.txt
+output_dir: path/to/outputs
+
+ae_runs:
+  four_state:
+    run_name: shared_hurdleAE_4states
+    states: [iPSC, NPC, Neuron, Astro]
+    latent_dim: 64
+  npc_astro_two_state:
+    run_name: shared_hurdleAE_2states
+    states: [NPC, Astro]
+    latent_dim: 128
+
+translations:
+  ipsc_to_npc:
+    ae_run: four_state
+    source_state: iPSC
+    target_state: NPC
+  npc_to_neuron:
+    ae_run: four_state
+    source_state: NPC
+    target_state: Neuron
+  npc_to_astro:
+    ae_run: npc_astro_two_state
+    source_state: NPC
+    target_state: Astro
