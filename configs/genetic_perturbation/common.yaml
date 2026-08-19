@@ -1,0 +1,93 @@
+application: genetic_perturbation
+source_state: control
+hurdle_ae:
+  seed: 42
+  latent_dim: 128
+  dropout: 0.1
+  batch_size: 64
+  learning_rate: 0.0005
+  epochs: 300
+  patience: 25
+  min_delta: 0.0001
+  threshold: 1.0e-06
+  input_drop_prob: 0.05
+  lambda_bce: 1.0
+  lambda_mag: 5.0
+  lambda_fp: 2.0
+  lambda_soft: 0.5
+  huber_beta: 0.1
+  alpha_tail: 1.0
+  tail_clip: 6.0
+  weight_decay: 0.0001
+  grad_clip: 1.0
+  pos_weight_clip_max: 50.0
+  inference_batch_size: 256
+  lr_plateau_factor: 0.5
+  lr_plateau_patience: 5
+  validation_fraction: 0.2
+  train_drop_last: true
+cyclegan:
+  batch_size: 32
+  epochs: 300
+  gp_weight: 10.0
+  drift_eps: 0.001
+  k_pair: 5
+  bank_sample: 512
+  lambda_sup: 0.0
+  lambda_cycle: 5.0
+  lambda_identity: 0.5
+  pair_w: 1.0
+  mmd_w: 1.0
+  cov_w: 0.2
+  mom_w: 2.0
+  n_critic: 5
+  lr_initial: 0.0001
+  lr_decay_steps: 10000
+  lr_decay_rate: 0.9
+  adam_beta1: 0.5
+  clipnorm: 1.0
+  mnn_every: 10
+  mnn_pool: 400
+  mmd_sigmas:
+  - 4.0
+  - 8.0
+  - 16.0
+  - 32.0
+  source_shuffle_buffer: 4096
+  target_shuffle_buffer: 512
+  steps_per_epoch_from: source
+  mnn_target_replace: true
+  tf_seed: null
+evaluation:
+  threshold: 1.0e-06
+  top_de_genes: 5000
+  ks_bad_threshold: 0.2
+  dedicated_log2fc_pseudocount: 0.001
+  dedicated_log2fc_min_detection: 0.01
+interpretation:
+  integrated_gradients:
+    steps: 64
+    max_samples: 1024
+    baseline_mode: mean
+    batch_size: 16
+    seed: 42
+  driver_score:
+    real_abs_weight: 1.0
+    predicted_abs_weight: 0.4
+    good_match_weight: 0.75
+    sign_match_weight: 0.35
+    shift_error_weight: -0.4
+    min_detection: 0.1
+    lfc_clip: 6.0
+    quantile: 0.75
+    top_n: 40
+    label_k: 20
+    epsilon: 1.0e-08
+    good_match_abs_pred_threshold: 0.1
+implementation_constants:
+  latent_standardization_epsilon: 1.0e-06
+  gradient_penalty_norm_epsilon: 1.0e-12
+  moment_loss_epsilon: 1.0e-06
+  driver_ig_minmax_epsilon: 1.0e-12
+  driver_zscore_epsilon: 1.0e-12
+  latent_alignment_variance_denominator_epsilon: 1.0e-08

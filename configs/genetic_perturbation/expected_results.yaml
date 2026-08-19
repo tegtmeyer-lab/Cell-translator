@@ -1,0 +1,130 @@
+# Numerical reference values printed by the source analysis notebook.
+# These values are for validation only; they are never used during training.
+
+input_data:
+  genes: 18614
+  control:
+    cells: 10529
+    zero_fraction: 0.7613
+    median_row_sum: 4076.139
+    max: 7.693
+  APOE:
+    cells: 681
+    zero_fraction: 0.7172
+    median_row_sum: 5795.982
+    max: 7.436
+  MSI2:
+    cells: 684
+    zero_fraction: 0.7279
+    median_row_sum: 3997.048
+    max: 7.059
+  NR1H3:
+    cells: 681
+    zero_fraction: 0.7172
+    median_row_sum: 5795.982
+    max: 7.436
+  LRRC4C:
+    cells: 8828
+    zero_fraction: 0.7477
+    median_row_sum: 4411.250
+    max: 8.936
+  ANKRD12:
+    cells: 568
+    zero_fraction: 0.7459
+    median_row_sum: 4674.598
+    max: 7.635
+
+stage1_hurdle_ae:
+  APOE: {best_epoch: 90, best_validation_loss: 7.6600, early_stop_epoch: 115}
+  MSI2: {best_epoch: 64, best_validation_loss: 6.6833, early_stop_epoch: 89}
+  NR1H3: {best_epoch: 90, best_validation_loss: 7.6600, early_stop_epoch: 115}
+  LRRC4C: {best_epoch: 27, best_validation_loss: 6.7211, early_stop_epoch: 52}
+  ANKRD12: {best_epoch: 83, best_validation_loss: 7.3703, early_stop_epoch: 108}
+
+stage2_final_epoch_reference:
+  # Informational only. The original TensorFlow CycleGAN runs were not seeded,
+  # so a fresh retraining is not expected to reproduce these loss values exactly.
+  APOE: {wasserstein_gap: 0.493, generator_forward: 1.523, discriminator_target: -0.392, pair: 0.051, mmd: 0.033, cycle: 0.105, identity: 0.072, moment_forward: 0.316, moment_backward: 0.328}
+  MSI2: {wasserstein_gap: 0.506, generator_forward: 1.564, discriminator_target: -0.405, pair: 0.051, mmd: 0.034, cycle: 0.109, identity: 0.078, moment_forward: 0.315, moment_backward: 0.325}
+  NR1H3: {wasserstein_gap: 0.450, generator_forward: 1.500, discriminator_target: -0.351, pair: 0.052, mmd: 0.034, cycle: 0.104, identity: 0.076, moment_forward: 0.319, moment_backward: 0.326}
+  LRRC4C: {wasserstein_gap: 0.068, generator_forward: 1.714, discriminator_target: -0.002, pair: 0.145, mmd: 0.036, cycle: 0.152, identity: 0.130, moment_forward: 0.328, moment_backward: 0.329}
+  ANKRD12: {wasserstein_gap: 0.455, generator_forward: 1.498, discriminator_target: -0.362, pair: 0.048, mmd: 0.034, cycle: 0.101, identity: 0.075, moment_forward: 0.320, moment_backward: 0.331}
+
+heldout_translation:
+  APOE:
+    gene_mean_pearson_r: 0.9879
+    detection_rate_pearson_r: 0.9875
+    median_per_gene_ks: 0.0851
+    mean_per_gene_ks: 0.1017
+    fraction_ks_lt_0_1: 0.548
+    fraction_ks_lt_0_2: 0.872
+    median_per_gene_wasserstein: 0.0539
+    mean_per_gene_wasserstein: 0.0731
+    historical_lfc_pearson_r: 0.8695
+    historical_lfc_spearman_r: 0.7620
+  MSI2:
+    gene_mean_pearson_r: 0.9920
+    detection_rate_pearson_r: 0.9895
+    median_per_gene_ks: 0.0787
+    mean_per_gene_ks: 0.0828
+    fraction_ks_lt_0_1: 0.639
+    fraction_ks_lt_0_2: 0.979
+    median_per_gene_wasserstein: 0.0397
+    mean_per_gene_wasserstein: 0.0474
+    historical_lfc_pearson_r: 0.8883
+    historical_lfc_spearman_r: 0.7378
+  NR1H3:
+    gene_mean_pearson_r: 0.9867
+    detection_rate_pearson_r: 0.9878
+    median_per_gene_ks: 0.0803
+    historical_lfc_pearson_r: 0.8631
+    historical_lfc_spearman_r: 0.7563
+  ANKRD12:
+    gene_mean_pearson_r: 0.9915
+    detection_rate_pearson_r: 0.9883
+    median_per_gene_ks: 0.0738
+    mean_per_gene_ks: 0.0872
+    fraction_ks_lt_0_1: 0.626
+    fraction_ks_lt_0_2: 0.934
+    median_per_gene_wasserstein: 0.0419
+    mean_per_gene_wasserstein: 0.0572
+    historical_lfc_pearson_r: 0.6257
+    historical_lfc_spearman_r: 0.4069
+  # The notebook does not contain an equivalent full single-perturbation
+  # printed result suite for LRRC4C; its final cross-model results are below.
+
+celltranslator_final_comparison:
+  NR1H3: {poor_count: 961, poor_percent: 5.162781, detection_r: 0.998593, effect_top5000_r: 0.964654}
+  LRRC4C: {poor_count: 20, poor_percent: 0.107446, detection_r: 0.999079, effect_top5000_r: 0.978010}
+  MSI2: {poor_count: 96, poor_percent: 0.515741, detection_r: 0.998632, effect_top5000_r: 0.974942}
+  APOE: {poor_count: 968, poor_percent: 5.200387, detection_r: 0.998829, effect_top5000_r: 0.969141}
+  ANKRD12: {poor_count: 550, poor_percent: 2.954765, detection_r: 0.998479, effect_top5000_r: 0.832730}
+
+full_model_comparison:
+  - [NR1H3, CellTranslator, 961, 5.162781, 0.998593, 0.964654]
+  - [NR1H3, scGEN, 18365, 98.662297, 0.382120, 0.957139]
+  - [NR1H3, CellOT, 18543, 99.618567, 0.136905, 0.664720]
+  - [NR1H3, scGPT, 12520, 67.261201, 0.679892, -0.263037]
+  - [LRRC4C, CellTranslator, 20, 0.107446, 0.999079, 0.978010]
+  - [LRRC4C, scGEN, 18505, 99.414419, 0.404995, 0.977269]
+  - [LRRC4C, CellOT, 18594, 99.892554, 0.086745, 0.619807]
+  - [LRRC4C, scGPT, 12623, 67.814548, 0.670816, 0.293010]
+  - [MSI2, CellTranslator, 96, 0.515741, 0.998632, 0.974942]
+  - [MSI2, scGEN, 18434, 99.032986, 0.460171, 0.971730]
+  - [MSI2, CellOT, 18592, 99.881809, 0.081975, 0.638100]
+  - [MSI2, scGPT, 12699, 68.222843, 0.680527, 0.357248]
+  - [APOE, CellTranslator, 968, 5.200387, 0.998829, 0.969141]
+  - [APOE, scGEN, 18365, 98.662297, 0.381828, 0.961058]
+  - [APOE, CellOT, 18538, 99.591705, 0.140413, 0.663618]
+  - [APOE, scGPT, 18614, 100.000000, 0.599961, -0.141558]
+  - [ANKRD12, CellTranslator, 550, 2.954765, 0.998479, 0.832730]
+  - [ANKRD12, scGEN, 18212, 97.840335, 0.419122, 0.709451]
+  - [ANKRD12, CellOT, 18572, 99.774363, 0.116819, 0.585115]
+  - [ANKRD12, scGPT, 12475, 67.019448, 0.666604, -0.205114]
+
+aggregate_gene_mean_metrics:
+  NR1H3: {ks: 0.0569, wasserstein: 0.0278, gene_mean_r: 0.996, detection_r: 0.999, effect_top5000_r: 0.965}
+  LRRC4C: {ks: 0.0791, wasserstein: 0.0238, gene_mean_r: 0.997, detection_r: 0.999, effect_top5000_r: 0.978}
+  MSI2: {ks: 0.0847, wasserstein: 0.0222, gene_mean_r: 0.996, detection_r: 0.999, effect_top5000_r: 0.975}
+  APOE: {ks: 0.0616, wasserstein: 0.0270, gene_mean_r: 0.997, detection_r: 0.999, effect_top5000_r: 0.969}
+  ANKRD12: {ks: 0.0705, wasserstein: 0.0262, gene_mean_r: 0.997, detection_r: 0.998, effect_top5000_r: 0.833}
