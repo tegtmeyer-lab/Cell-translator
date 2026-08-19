@@ -1,0 +1,28 @@
+common_config: common.yaml
+workflow: leukemia_transformation
+source_state: CD34
+source_label: CD34+
+target_state: MPAL
+target_label: MPAL
+
+paths:
+  source_expression: path/to/hvg_CD34.npy
+  target_expression: path/to/hvg_MPAL.npy
+  gene_names: path/to/gene_names.npy
+  output_dir: results/acute_leukemia/disease_cd34_to_mpal
+
+run_names:
+  source_ae: cd34_hurdle_ae
+  target_ae: mpal_hurdle_ae
+
+expected_input:
+  source_cells: 5752
+  target_cells: 5885
+  genes: 5000
+
+# The final per-gene distribution block in the disease notebook used the
+# library-size-matched hard translation.
+evaluation:
+  distribution_output: library_matched
+  also_evaluate_library_matched: false
+  sampling_seed: null

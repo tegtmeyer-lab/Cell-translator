@@ -1,0 +1,73 @@
+application: acute_leukemia
+
+model:
+  stage1_variant: independent_state_hurdle_ae
+  latent_dim: 128
+
+hurdle_ae:
+  latent_dim: 128
+  dropout: 0.10
+  batch_size: 256
+  learning_rate: 0.001
+  epochs: 200
+  patience: 10
+  min_delta: 0.0001
+  validation_fraction: 0.20
+  seed: 42
+  input_drop_prob: 0.15
+  threshold: 0.0
+  lambda_bce: 1.0
+  lambda_nz: 1.0
+  lambda_fp: 2.0
+  huber_beta: 0.1
+  grad_clip: 1.0
+  p_zero_penalty_weight: 0.0
+  weight_decay: 0.0001
+  scheduler_factor: 0.5
+  scheduler_patience: 4
+
+cyclegan:
+  batch_size: 128
+  epochs: 300
+  lambda_cycle: 10.0
+  lambda_identity: 0.1
+  gp_weight: 10.0
+  lambda_sup: 0.0
+  k_pair: 9
+  bank_sample: 5000
+  n_critic: 3
+  drift_eps: 0.001
+  pair_weight: 5.0
+  mmd_weight: 2.0
+  covariance_weight: 2.0
+  nce_weight: 0.0
+  nce_tau: 0.07
+  mmd_sigmas: [1.0, 2.0, 4.0]
+  learning_rate: 0.0001
+  lr_decay_steps: 10000
+  lr_decay_rate: 0.9
+  adam_beta1: 0.5
+  clipnorm: 1.0
+  shuffle_buffer: 1024
+  mnn_every: 10
+  mnn_pool: 4000
+  tf_seed: null
+
+translation:
+  split: validation
+  standardization_epsilon: 0.000001
+  unstandardization_epsilon: 0.00000001
+  hard_decode_detection_threshold: 0.0
+  library_match_mode: median
+
+log2fc:
+  expression_threshold: 0.01
+  pseudocount: 0.1
+  linear_clip_max: 20.0
+
+interpretability:
+  retained_in_public_workflow: false
+  note: >-
+    The source notebooks contain Integrated Gradients, latent-axis, Jacobian,
+    trajectory, and disease-specific comparison analyses. These are downstream
+    analyses and are not required to reproduce the core translation results.

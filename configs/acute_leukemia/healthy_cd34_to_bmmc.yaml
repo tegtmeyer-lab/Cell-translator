@@ -1,0 +1,29 @@
+common_config: common.yaml
+workflow: healthy_differentiation
+source_state: CD34
+source_label: CD34+
+target_state: BMMC
+target_label: BMMC
+
+paths:
+  source_expression: path/to/hvg_CD34.npy
+  target_expression: path/to/hvg_BMMC.npy
+  gene_names: path/to/gene_names.npy
+  output_dir: results/acute_leukemia/healthy_cd34_to_bmmc
+
+run_names:
+  source_ae: cd34_hurdle_ae
+  target_ae: bmmc_hurdle_ae
+
+expected_input:
+  source_cells: 5752
+  target_cells: 6270
+  genes: 5000
+
+# The main per-gene distribution block in the source notebook used the
+# globally hard-thresholded translation. Library-matched output was also
+# reported as an alternative distribution check.
+evaluation:
+  distribution_output: hard
+  also_evaluate_library_matched: true
+  sampling_seed: null

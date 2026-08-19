@@ -1,0 +1,77 @@
+healthy_cd34_to_bmmc:
+  input:
+    source_cells: 5752
+    target_cells: 6270
+    genes: 5000
+    source_validation_cells: 1151
+    target_validation_cells: 1254
+  stage1:
+    source_best_epoch: 40
+    source_best_validation_loss: 1.2552
+    source_early_stop_epoch: 50
+    target_best_epoch: 43
+    target_best_validation_loss: 1.2550
+    target_early_stop_epoch: 53
+  decoding:
+    target_detection_fraction: 0.13076290271132376
+    p_threshold: 0.3139350414276123
+    hard_detection_fraction: 0.13076281494352737
+    target_median_library_size: 5013.0693
+  translation_metrics:
+    latent_mean_pearson_r: {value: 0.865, tolerance: 0.02}
+    latent_mean_l2: {value: 1.415, tolerance: 0.10}
+    latent_mean_mae: {value: 0.1022, tolerance: 0.01}
+    latent_std_pearson_r: {value: 0.917, tolerance: 0.02}
+    latent_std_l2: {value: 0.628, tolerance: 0.10}
+    latent_std_mae: {value: 0.0451, tolerance: 0.01}
+    latent_std_relative_mae: {value: 0.0477, tolerance: 0.01}
+    median_latent_ks: {value: 0.071676806, tolerance: 0.02}
+    median_latent_wasserstein: {value: 0.10573593, tolerance: 0.03}
+    median_abs_latent_mean_difference: {value: 0.08285752, tolerance: 0.03}
+    direction_cosine_similarity: {value: 0.9674788, tolerance: 0.02}
+    median_gene_ks: {value: 0.044309296, tolerance: 0.02}
+    median_gene_wasserstein: {value: 0.060041822, tolerance: 0.03}
+    median_abs_gene_mean_difference: {value: 0.045214176, tolerance: 0.03}
+    log2fc_pearson_r: {value: 0.9851, tolerance: 0.02}
+    log2fc_genes_retained: {value: 4093, tolerance: 25}
+  alternative_library_matched_metrics:
+    median_gene_ks: 0.040834058
+    median_gene_wasserstein: 0.054952867
+    median_abs_gene_mean_difference: 0.051731076
+
+disease_cd34_to_mpal:
+  input:
+    source_cells: 5752
+    target_cells: 5885
+    genes: 5000
+    source_validation_cells: 1151
+    target_validation_cells: 1177
+  stage1:
+    source_best_epoch: 40
+    source_best_validation_loss: 1.2552
+    source_early_stop_epoch: 50
+    target_best_epoch: 41
+    target_best_validation_loss: 1.2292
+    target_early_stop_epoch: 51
+  decoding:
+    target_detection_fraction: 0.17179204757858962
+    p_threshold: 0.34306108951568604
+    hard_detection_fraction: 0.17179200695047783
+    target_median_library_size: 4882.6406
+  translation_metrics:
+    latent_mean_pearson_r: {value: 0.893, tolerance: 0.02}
+    latent_mean_l2: {value: 1.287, tolerance: 0.10}
+    latent_mean_mae: {value: 0.0915, tolerance: 0.01}
+    latent_std_pearson_r: {value: 0.937, tolerance: 0.02}
+    latent_std_l2: {value: 0.603, tolerance: 0.10}
+    latent_std_mae: {value: 0.0397, tolerance: 0.01}
+    latent_std_relative_mae: {value: 0.0450, tolerance: 0.01}
+    median_latent_ks: {value: 0.062119894, tolerance: 0.02}
+    median_latent_wasserstein: {value: 0.0970334, tolerance: 0.03}
+    median_abs_latent_mean_difference: {value: 0.07928252, tolerance: 0.03}
+    direction_cosine_similarity: {value: 0.97052914, tolerance: 0.02}
+    median_gene_ks: {value: 0.07384883, tolerance: 0.02}
+    median_gene_wasserstein: {value: 0.091698095, tolerance: 0.03}
+    median_abs_gene_mean_difference: {value: 0.08678196, tolerance: 0.03}
+    log2fc_pearson_r: {value: 0.9801, tolerance: 0.02}
+    log2fc_genes_retained: {value: 4983, tolerance: 25}
