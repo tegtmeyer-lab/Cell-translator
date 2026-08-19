@@ -47,8 +47,8 @@ TensorFlow was not explicitly seeded in the original notebook. Therefore retrain
 
 ## Dataset preparation
 
-- Primary dataset: normalized 1–6 month matrices; 15,000 Seurat-v3 HVGs selected jointly with `batch_key=timepoint`; model pair 2 months → 6 months.
+- Primary dataset: normalized 1–6 month matrices; 5,000 Seurat-v3 HVGs selected jointly with `batch_key=timepoint`; model pair 2 months → 6 months.
 - HNOCA/He dataset: already log1p-normalized; exact ages 15, 30, 60, 90, 120, 150, 180 days; 5,000 Seurat-v3 HVGs; model pair 15 → 60 days.
 - Independent dataset: already log1p-normalized; exact ages 4, 9, 12, 18, 21, 61 days; 5,000 Seurat-v3 HVGs; model pair 18 → 61 days.
 
-No additional QC filtering or normalization was applied in the final preparation cells before HVG selection. Scanpy may warn that `seurat_v3` expects raw counts because the supplied matrices are normalized; that warning was also present in the source notebooks and the preprocessing choice is retained for fidelity.
+No additional QC filtering or normalization was applied in the final preparation cells before HVG selection. Scanpy may warn that `seurat_v3` expects raw counts because the supplied matrices are normalized and the preprocessing choice is retained for fidelity.
