@@ -1,7 +1,8 @@
-"""Reviewer-facing neuronal differentiation application runner.
+"""Neuronal differentiation application runner.
 
-This file intentionally does not redefine HurdleAE, CycleGAN, losses, or training
-functions. Those are imported from the canonical ``cell_translator`` package.
+This module defines the neuronal differentiation workflow and imports the
+shared HurdleAE, CycleGAN, loss functions, training routines, and inference
+utilities from the ``cell_translator`` package.
 """
 
 import argparse
