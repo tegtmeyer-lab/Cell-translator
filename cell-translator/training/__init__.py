@@ -1,8 +1,8 @@
 """Training routines for Cell Translator.
 
-The PyTorch HurdleAE training API is imported eagerly. TensorFlow CycleGAN
-training is exposed lazily so Stage 1 utilities remain importable in a
-PyTorch-only environment.
+PyTorch HurdleAE training utilities are imported eagerly. TensorFlow-based
+CycleGAN training utilities are exposed lazily so Stage 1 functionality
+remains importable in environments without TensorFlow installed.
 """
 
 from .hurdle_ae_training import run_shared_hurdle_ae, train_shared_hurdle_ae
