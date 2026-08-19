@@ -1,8 +1,4 @@
-"""Dataset preparation for the three cerebral organoid maturation datasets.
-
-The preparation logic follows the source notebooks while removing machine-specific
-paths and consolidating repeated save/concatenation code.
-"""
+"""Dataset preparation for the three cerebral organoid maturation datasets."""
 from __future__ import annotations
 import argparse
 from pathlib import Path
