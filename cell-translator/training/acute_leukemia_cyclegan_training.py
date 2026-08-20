@@ -1,4 +1,4 @@
-"""Historical latent CycleGAN training variant used in acute leukemia analyses.
+""" Latent CycleGAN training variant used in acute leukemia analyses.
 
 The generator and critic architectures are imported from the shared Cell
 Translator model package. This module preserves the acute-leukemia-specific
