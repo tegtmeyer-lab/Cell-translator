@@ -114,7 +114,7 @@ each application.
 
 ## Validation and benchmarking analyses
 
-Reviewer-facing validation and benchmarking code that is not itself a biological application lives under `analyses/`.
+Validation and benchmarking code that is not itself a biological application lives under `analyses/`.
 
 ### Perturbation baseline comparison
 
@@ -132,3 +132,11 @@ architecture is kept local to this analysis and does not replace the canonical
 morphology implementation.
 
 See [`analyses/leave_one_line_out/README.md`](analyses/leave_one_line_out/README.md).
+### Perturbation tool benchmarks
+
+Prepares the scGen, CellOT, and archived-scGPT benchmark outputs used in the
+five-perturbation comparison with Cell Translator. External tool code remains
+separate from the canonical Cell Translator implementation.
+
+See [`analyses/perturbation_tool_benchmarks/README.md`](analyses/perturbation_tool_benchmarks/README.md).
+
