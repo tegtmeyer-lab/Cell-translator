@@ -1,4 +1,4 @@
-"""Validate acute-leukemia reproduction metrics against notebook references."""
+"""Validate acute-leukemia reproduction metrics against references."""
 from __future__ import annotations
 import argparse
 import json
