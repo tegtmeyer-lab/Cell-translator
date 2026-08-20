@@ -184,9 +184,7 @@ python applications/genetic_perturbation/validate_results.py \
 
 ## Reproducibility notes
 
-- The Stage-1 split is performed independently within control and target using
-  `test_size=0.20` and seed 42. This 20% subset is a validation/held-out subset.
-- The HurdleAE training loop intentionally consumes the two training loaders
-  with `zip()` and `drop_last=True`; the smaller perturbation domain therefore
-  determines the number of Stage-1 updates per epoch. 
+- Stage 1 is split independently within the control and perturbation domains using an 80:20 train/validation split (`test_size=0.20`, seed `42`). The held-out 20% subsets are not used for HurdleAE training and are retained for validation and downstream translation evaluation.
+
+- During HurdleAE training, the control and perturbation training loaders are iterated jointly using `zip()`, with `drop_last=True` for both loaders. Consequently, each epoch contains the number of complete batches available in the smaller of the two domains; for the perturbation datasets used here.
 
