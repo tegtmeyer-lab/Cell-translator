@@ -1,7 +1,6 @@
 """Consolidated final model-comparison analysis across five perturbations.
 
-This replaces the repeated exploratory comparison cells in the source notebook
-with one implementation of the final per-gene KS/Wasserstein, detection-rate,
+This replaces the repeated exploratory comparison cells with one implementation of the final per-gene KS/Wasserstein, detection-rate,
 and top-DE effect-recovery metrics.
 """
 
