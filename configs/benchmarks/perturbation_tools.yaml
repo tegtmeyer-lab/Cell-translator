@@ -1,4 +1,4 @@
-# Placeholder-only paths. Replace these locally; do not commit private paths.
+# Placeholder-only paths. Replace these locally.
 perturbations: [APOE, MSI2, NR1H3, LRRC4C, ANKRD12]
 
 common_test_control_ids: "path/to/benchmark_outputs/common_test_control_ids.txt"
@@ -49,7 +49,6 @@ cellot:
 scgen:
   output_root: "path/to/benchmark_outputs/scgen"
   max_epochs: 50
-  seed: null  # original notebook did not explicitly set a seed
   recorded_python: "3.10.19"
   recorded_scgen_version: "2.1.1"
   recorded_scvi_tools_version: "1.3.3"
