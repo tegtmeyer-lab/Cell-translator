@@ -20,18 +20,7 @@
 | scGen version | 2.1.1 |
 | scvi-tools version | 1.3.3 |
 | scGen Python | 3.10.19 |
-| scGen explicit seed | none recorded |
 | scGPT version | 0.2.4 |
 | scGPT PyTorch | 2.3.1+cu118 |
 | scGPT torchtext | 0.18.0+cpu |
 | scGPT final postprocessing | `control_mean + yhat`, clip at 0 |
-
-## Parameters not recoverable from the supplied notebooks
-
-- Exact CellOT repository commit/package version and the content/version of the upstream `configs/models/cellot.yaml` used for training.
-- scGPT `max_seq_len` used by the chunked prediction cell.
-- The source/import of `map_raw_id_to_vocab_id` in the scGPT kernel.
-- Exact GEARS and torch-geometric versions.
-- A complete scGPT fine-tuning/training step for the 23 parameter tensors not loaded from the selected pretrained checkpoint prefixes.
-
-These values are deliberately not guessed in the public code.
