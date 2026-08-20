@@ -1,7 +1,7 @@
 # Cell Painting morphology parameter reference
 
 This file records the executable settings used in the coherent 3,409-feature
-Cell Painting workflow in the source notebook.
+Cell Painting workflow.
 
 ## Morphology autoencoder
 
@@ -21,13 +21,10 @@ Cell Painting workflow in the source notebook.
 | Training variance-loss weight | 2.0 |
 | Training covariance-loss weight | 0.1 |
 | Validation objective | MSE only |
-| Explicit PyTorch training seed | not set in source notebook |
 
 The model is state-specific: Stem, NPC, Neuron, and Astrocyte each receive an
 independently trained AE with the same architecture and hyperparameters.
-Missing values are filled with training-set medians and each state is
-standardized independently with a `StandardScaler` fitted on its training
-cells only.
+
 
 ## Morphology CycleGAN
 
@@ -52,20 +49,15 @@ cells only.
 | LR decay rate | 0.9 |
 | Adam beta1 | 0.5 |
 | Clipnorm | 1.0 |
-| Explicit TensorFlow seed | not set in source notebook |
 
 Source and target latent spaces are standardized **separately**, using the
 training mean and standard deviation of each state. The morphology generator
-is 256→512→256→256→256 with LayerNormalization and ReLU; the forward model
-has an additional affine output head. The critic is 256→256→128→64→1.
+is 256->512->256->256->256 with LayerNormalization and ReLU; the forward model
+has an additional affine output head. The critic is 256->256->128->64->1.
 
-The source notebook's morphology moment loss computes
-`abs(std_fake - std_real + eps)`; that historical convention is preserved.
 
 ## Interpretation
 
 Integrated Gradients uses 64 integration steps, at most 1,024 source cells, a
 mean baseline, batch size 16, and seed 42. DriverScore is the absolute measured
-Cohen's d. The PyTorch mirror used for IG is kept as implemented historically;
-the public script prints its maximum forward discrepancy from the Keras model
-before attribution.
+Cohen's d. 
