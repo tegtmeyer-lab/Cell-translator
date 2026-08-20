@@ -1,7 +1,5 @@
 """Prepare common control and perturbation expression matrices.
-
-The source notebook used all genes from an already normalized/log1p AnnData
-object; no additional normalization or HVG filtering is performed here.
+ The scRNA-seq datasets used in this repository were processed using the standard Scanpy preprocessing workflow described in the [Scanpy preprocessing and clustering tutorial](https://scanpy.readthedocs.io/en/stable/tutorials/basics/clustering.html).
 """
 
 from __future__ import annotations
