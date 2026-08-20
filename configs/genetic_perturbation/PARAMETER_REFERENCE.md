@@ -45,13 +45,13 @@ Hurdle loss weights:
 Architecture:
 
 ```text
-control encoder: input → 512 → 256 → 128 → latent(128)
-target encoder:  input → 512 → 256 → 128 → latent(128)
-shared decoder:  latent → 128 → 256 → 512 → {detection logits, magnitude}
+control encoder: input -> 512 -> 256 -> 128 -> latent(128)
+target encoder:  input -> 512 -> 256 -> 128 -> latent(128)
+shared decoder:  latent -> 128 -> 256 -> 512 -> {detection logits, magnitude}
 ```
 
-Encoder hidden blocks use Linear → LayerNorm → GELU, with dropout 0.10 in the
-512 and 256 blocks. Decoder hidden blocks use Linear → LayerNorm → GELU. The
+Encoder hidden blocks use Linear -> LayerNorm -> GELU, with dropout 0.10 in the
+512 and 256 blocks. Decoder hidden blocks use Linear -> LayerNorm -> GELU. The
 magnitude output uses Softplus and the detection output uses Sigmoid.
 
 **Training-loop behavior retained for fidelity:** source and target DataLoaders
@@ -92,33 +92,24 @@ The five perturbations use the same Stage-2 configuration.
 | MNN target sampling replacement | True |
 | TensorFlow random seed | not set in source analysis |
 
-The forward generator has Dense(1024) → Dense(512) → Dense(512) → Dense(latent)
+The forward generator has Dense(1024) -> Dense(512) -> Dense(512) -> Dense(latent)
 with ReLU + LayerNorm on the hidden layers, followed by a bare affine output
 head. The backward generator uses the same core MLP without the additional
-forward affine head. Critics use Dense(512) → 256 → 128 → 1 with ReLU hidden
+forward affine head. Critics use Dense(512) -> 256 -> 128 -> 1 with ReLU hidden
 activations and no output sigmoid.
-
-Because the original TensorFlow RNG was not seeded, archived Keras models are
-the path for exact numerical reproduction of the reported predictions. Fresh
-retraining preserves the procedure and hyperparameters but is stochastic.
 
 ## Evaluation definitions
 
 The notebook contains multiple effect summaries used for different figures.
 They are retained under explicit names rather than merged into one definition.
 
-1. **Single-perturbation historical LFC:**
-   `log1p(mean(target_log1p)) - log1p(mean(control_log1p))`.
-2. **Final dedicated log2FC analysis:** inverse-log1p to linear expression,
+1. **Final dedicated log2FC analysis:** inverse-log1p to linear expression,
    average per gene, then `log2((target_mean + 1e-3)/(control_mean + 1e-3))`.
    The final visualization uses a 0.01 detection filter for its top panels.
-3. **Final cross-model effect recovery:** mean log1p perturbation minus mean
+2. **Final cross-model effect recovery:** mean log1p perturbation minus mean
    log1p control; Pearson correlation is evaluated over the top 5,000 genes by
    absolute measured effect.
 
-An earlier exploratory log2FC block used pseudocount 0.1 together with
-expression/detection filtering. It is superseded by the later repeated
-linear-space analysis above and is not used as the canonical reproduction path.
 
 ## Integrated gradients / DriverScore
 
@@ -158,15 +149,3 @@ record.
 | Driver z-score epsilon | 1e-12 |
 | Latent-alignment variance denominator epsilon | 1e-8 |
 
-A stale comment in the Stage-2 notebook described some saved latents as 64-D.
-The executable Stage-1 configuration uses `LATENT_DIM = 128`, and the captured
-Stage-1 output reports `Z_ctrl shape: (10529, 128)`. The reproducibility package
-therefore records the actual latent dimension as **128**.
-
-## Software-version provenance
-
-The source notebook identifies a Python 3.11 user environment in its captured
-runtime output, but it does not record exact NumPy, PyTorch, TensorFlow,
-scikit-learn, SciPy, Scanpy, or related package versions. Exact dependency
-versions should therefore only be pinned if the original environment metadata
-can be recovered; version numbers should not be guessed.
