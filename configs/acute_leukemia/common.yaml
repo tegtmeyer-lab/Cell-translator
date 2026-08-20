@@ -65,9 +65,4 @@ log2fc:
   pseudocount: 0.1
   linear_clip_max: 20.0
 
-interpretability:
-  retained_in_public_workflow: false
-  note: >-
-    The source notebooks contain Integrated Gradients, latent-axis, Jacobian,
-    trajectory, and disease-specific comparison analyses. These are downstream
-    analyses and are not required to reproduce the core translation results.
+
