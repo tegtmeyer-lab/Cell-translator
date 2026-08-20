@@ -1,4 +1,3 @@
-# Numerical reference values printed by the source analysis notebook.
 # These values are for validation only; they are never used during training.
 
 input_data:
@@ -90,8 +89,6 @@ heldout_translation:
     mean_per_gene_wasserstein: 0.0572
     historical_lfc_pearson_r: 0.6257
     historical_lfc_spearman_r: 0.4069
-  # The notebook does not contain an equivalent full single-perturbation
-  # printed result suite for LRRC4C; its final cross-model results are below.
 
 celltranslator_final_comparison:
   NR1H3: {poor_count: 961, poor_percent: 5.162781, detection_r: 0.998593, effect_top5000_r: 0.964654}
