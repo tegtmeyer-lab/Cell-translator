@@ -20,8 +20,6 @@ expected_input:
   target_cells: 5885
   genes: 5000
 
-# The final per-gene distribution block in the disease notebook used the
-# library-size-matched hard translation.
 evaluation:
   distribution_output: library_matched
   also_evaluate_library_matched: false
