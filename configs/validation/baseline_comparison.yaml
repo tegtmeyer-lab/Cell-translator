@@ -1,0 +1,31 @@
+output_dir: results/baseline_comparison
+
+data:
+  control: path/to/control.npy
+  gene_names: path/to/gene_names.npy
+
+perturbations:
+  NR1H3:
+    measured: path/to/nr1h3.npy
+    cell_translator_prediction: path/to/X_pred_nr1h3_hard.npy
+  LRRC4C:
+    measured: path/to/lrrc4c.npy
+    cell_translator_prediction: path/to/X_pred_lrrc4c_hard.npy
+  MSI2:
+    measured: path/to/msi2.npy
+    cell_translator_prediction: path/to/X_pred_msi2_hard.npy
+  APOE:
+    measured: path/to/apoe.npy
+    cell_translator_prediction: path/to/X_pred_apoe_hard.npy
+  ANKRD12:
+    measured: path/to/ankrd12.npy
+    cell_translator_prediction: path/to/X_pred_ankrd12_hard.npy
+
+settings:
+  random_state: 42
+  test_size: 0.30
+  pca_n_components: 50
+  top_k_genes: 500
+  ks_max_genes: 3000
+  auc_cells: 1000
+  clip_nonnegative: true

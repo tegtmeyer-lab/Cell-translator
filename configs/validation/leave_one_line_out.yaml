@@ -1,0 +1,112 @@
+random_state: 42
+training_output_dir: results/leave_one_line_out/retrained_folds
+archived_folds_root: path/to/archived_five_line_lodo_folds
+archived_evaluation_output_dir: results/leave_one_line_out/archived_evaluation
+
+data:
+  stem: path/to/stem_annotated.parquet
+  npc: path/to/npc_annotated.parquet
+  neuron: path/to/neuron_annotated.parquet
+  astrocyte: path/to/astrocyte_annotated.parquet
+
+metadata:
+  genotype_column: Metadata_genotype
+  line_column: Metadata_line_ID
+  control_label: control
+
+excluded_line_ids: [22, 23, 24, 25]
+
+selected_heldout_lines:
+  stem_to_npc: [10, 15, 20, 21, 9]
+  stem_to_neuron: [19, 20, 21, 7, 9]
+  stem_to_astrocyte: [10, 11, 12, 5, 6]
+  npc_to_neuron: [12, 19, 20, 3, 5]
+  npc_to_astrocyte: [10, 11, 12, 18, 5]
+
+transitions:
+  stem_to_npc:
+    source_state: Stem
+    target_state: NPC
+    source_dataset: stem
+    target_dataset: npc
+  stem_to_neuron:
+    source_state: Stem
+    target_state: Neuron
+    source_dataset: stem
+    target_dataset: neuron
+  stem_to_astrocyte:
+    source_state: Stem
+    target_state: Astrocyte
+    source_dataset: stem
+    target_dataset: astrocyte
+  npc_to_neuron:
+    source_state: NPC
+    target_state: Neuron
+    source_dataset: npc
+    target_dataset: neuron
+  npc_to_astrocyte:
+    source_state: NPC
+    target_state: Astrocyte
+    source_dataset: npc
+    target_dataset: astrocyte
+
+sampling:
+  max_train_cells_per_domain: 12000
+  max_heldout_source_cells: 5000
+  max_heldout_target_cells: 5000
+
+feature_selection:
+  min_nonmissing_fraction: 0.95
+  drop_substrings:
+    - imagenumber
+    - objectnumber
+    - parent_
+    - children_
+    - location_
+    - center_x
+    - center_y
+    - plate
+    - well
+    - site
+    - field
+    - row
+    - column
+    - filename
+    - pathname
+    - url
+    - metadata_
+    - number_object
+    - neighbor
+    - neighbors
+    - neighbour
+    - neighbours
+
+autoencoder:
+  latent_dim: 128
+  dropout: 0.03
+  epochs: 100
+  batch_size: 128
+  learning_rate: 0.00008
+  patience: 25
+  validation_fraction: 0.15
+
+cyclegan:
+  epochs: 250
+  batch_size: 64
+  n_critic: 3
+  gradient_penalty_weight: 10.0
+  cycle_weight: 5.0
+  identity_weight: 0.5
+  moment_weight: 2.0
+  learning_rate: 0.0001
+  adam_beta1: 0.5
+  clipnorm: 1.0
+  source_shuffle_buffer: 4096
+  target_shuffle_buffer: 4096
+
+evaluation:
+  pca_components: 50
+  training_summary_pca_log_base: e
+  final_pca_log_base: 2
+  ks_max_cells: 1000
+  auc_max_cells_per_class: 1000

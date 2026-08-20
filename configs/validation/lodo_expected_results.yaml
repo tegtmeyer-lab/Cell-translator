@@ -1,0 +1,33 @@
+# Reference values printed by the final corrected five-line post-hoc evaluator.
+# These values validate archived fold outputs; fresh retraining can vary slightly.
+results:
+  stem_to_npc:
+    10: {effect_size_pearson_r: 0.401, median_ks: 0.139, pca_log2_error: 0.155, auc_distance_from_0p5: 0.297}
+    15: {effect_size_pearson_r: 0.748, median_ks: 0.120, pca_log2_error: 0.185, auc_distance_from_0p5: 0.358}
+    20: {effect_size_pearson_r: -0.281, median_ks: 0.233, pca_log2_error: 0.150, auc_distance_from_0p5: 0.374}
+    21: {effect_size_pearson_r: 0.723, median_ks: 0.107, pca_log2_error: 0.227, auc_distance_from_0p5: 0.350}
+    9:  {effect_size_pearson_r: 0.873, median_ks: 0.174, pca_log2_error: 0.335, auc_distance_from_0p5: 0.302}
+  stem_to_neuron:
+    19: {effect_size_pearson_r: 0.817, median_ks: 0.107, pca_log2_error: 0.132, auc_distance_from_0p5: 0.271}
+    20: {effect_size_pearson_r: 0.326, median_ks: 0.138, pca_log2_error: 0.176, auc_distance_from_0p5: 0.293}
+    21: {effect_size_pearson_r: 0.787, median_ks: 0.132, pca_log2_error: 0.188, auc_distance_from_0p5: 0.354}
+    7:  {effect_size_pearson_r: 0.639, median_ks: 0.199, pca_log2_error: 0.211, auc_distance_from_0p5: 0.408}
+    9:  {effect_size_pearson_r: 0.831, median_ks: 0.150, pca_log2_error: 0.218, auc_distance_from_0p5: 0.273}
+  stem_to_astrocyte:
+    10: {effect_size_pearson_r: 0.259, median_ks: 0.119, pca_log2_error: 0.208, auc_distance_from_0p5: 0.356}
+    11: {effect_size_pearson_r: 0.549, median_ks: 0.223, pca_log2_error: 0.237, auc_distance_from_0p5: 0.485}
+    12: {effect_size_pearson_r: 0.853, median_ks: 0.096, pca_log2_error: 0.117, auc_distance_from_0p5: 0.353}
+    5:  {effect_size_pearson_r: 0.559, median_ks: 0.111, pca_log2_error: 0.320, auc_distance_from_0p5: 0.415}
+    6:  {effect_size_pearson_r: 0.704, median_ks: 0.114, pca_log2_error: 0.113, auc_distance_from_0p5: 0.413}
+  npc_to_neuron:
+    12: {effect_size_pearson_r: 0.032, median_ks: 0.162, pca_log2_error: 0.117, auc_distance_from_0p5: 0.313}
+    19: {effect_size_pearson_r: 0.923, median_ks: 0.111, pca_log2_error: 0.182, auc_distance_from_0p5: 0.171}
+    20: {effect_size_pearson_r: 0.890, median_ks: 0.196, pca_log2_error: 0.145, auc_distance_from_0p5: 0.297}
+    3:  {effect_size_pearson_r: 0.671, median_ks: 0.130, pca_log2_error: 0.159, auc_distance_from_0p5: 0.232}
+    5:  {effect_size_pearson_r: 0.815, median_ks: 0.105, pca_log2_error: 0.158, auc_distance_from_0p5: 0.281}
+  npc_to_astrocyte:
+    10: {effect_size_pearson_r: -0.319, median_ks: 0.175, pca_log2_error: 0.173, auc_distance_from_0p5: 0.397}
+    11: {effect_size_pearson_r: 0.191, median_ks: 0.184, pca_log2_error: 0.127, auc_distance_from_0p5: 0.445}
+    12: {effect_size_pearson_r: 0.652, median_ks: 0.132, pca_log2_error: 0.121, auc_distance_from_0p5: 0.406}
+    18: {effect_size_pearson_r: 0.803, median_ks: 0.141, pca_log2_error: 0.320, auc_distance_from_0p5: 0.275}
+    5:  {effect_size_pearson_r: -0.366, median_ks: 0.131, pca_log2_error: 0.267, auc_distance_from_0p5: 0.427}
