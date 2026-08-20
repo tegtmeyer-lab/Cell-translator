@@ -1,10 +1,4 @@
-"""Validate or create preprocessed acute-leukemia Cell Translator inputs.
-
-The supplied model notebooks begin from preprocessed log1p-normalized matrices
-with 5,000 genes. They do not contain the upstream raw-count QC/HVG-selection
-pipeline; this module therefore validates those model inputs rather than
-inventing an unreported preprocessing procedure.
-"""
+"""Validate or create preprocessed acute-leukemia Cell Translator inputs. """
 from __future__ import annotations
 
 import argparse
