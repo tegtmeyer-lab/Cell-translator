@@ -10,6 +10,14 @@ architecture, loss functions, split strategy, training-loop behavior, and
 hyperparameters are centralized under `cell_translator/` and are not redefined
 in the application scripts.
 
+## Data preprocessing
+
+Raw single-cell RNA-seq data were preprocessed using Scanpy following its standard single-cell preprocessing workflow. The preprocessing included application-specific quality control, normalization, log transformation, gene filtering/selection, and generation of the expression matrices used as Cell Translator inputs.
+
+For the general Scanpy workflow, see the [Scanpy preprocessing and clustering tutorial](https://scanpy.readthedocs.io/en/stable/tutorials/basics/clustering.html).
+
+The Cell Translator training scripts in this directory expect the resulting preprocessed expression matrices as input. 
+
 ## Input data
 
 The preparation workflow expects one AnnData (`.h5ad`) object containing the
