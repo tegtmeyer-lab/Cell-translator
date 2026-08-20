@@ -1,6 +1,6 @@
 # Perturbation baseline comparison
 
-This analysis compares archived Cell Translator perturbation predictions with four simple baselines: Identity, MeanShift, NearestNeighbor, and LinearLatentShift. It preserves the evaluation definitions from the source analysis while removing notebook-only plotting fragments and private filesystem paths.
+This analysis compares archived Cell Translator perturbation predictions with four simple baselines: Identity, MeanShift, NearestNeighbor, and LinearLatentShift. It preserves the evaluation definitions from the source analysis.
 
 The comparison is distribution-level and unpaired. Source and measured-target matrices are independently split 70:30 using random state 42; the simple baselines learn only from the 70% training subsets. Archived Cell Translator predictions are subsampled to the same number of evaluation source cells when needed.
 
@@ -17,4 +17,4 @@ python analyses/baseline_comparison/plot.py \
   --outdir results/baseline_comparison/figures
 ```
 
-The original uploaded script contained notebook remnants and undefined plotting globals, so the public version separates computation and plotting into two standalone modules without changing the baseline definitions or metrics.
+
