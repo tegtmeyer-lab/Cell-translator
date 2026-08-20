@@ -1,7 +1,6 @@
 # Acute leukemia application
 
-This application reproduces two Cell Translator analyses from the acute
-leukemia notebooks:
+This application reproduces two Cell Translator analyses:
 
 1. **Healthy hematopoietic differentiation:** CD34+ -> BMMC
 2. **Leukemia transformation:** CD34+ -> MPAL
@@ -13,11 +12,8 @@ HurdleAE or CycleGAN architectures.
 
 ## Input data
 
-The source notebooks start from preprocessed, non-negative, log1p-normalized
-expression matrices with exactly **5,000 genes in the same order**. The raw
-count QC and upstream HVG-selection procedure are not contained in the supplied
-model notebooks, so this public workflow intentionally does not invent one.
-Provide the matrices used by the model:
+The preprocessed, non-negative, log1p-normalized
+expression matrices with exactly **5,000 genes in the same order**. 
 
 - CD34+: 5,752 x 5,000
 - BMMC: 6,270 x 5,000
@@ -52,11 +48,6 @@ acute-leukemia-specific alignment weights. This is preserved in
 The generator/critic architectures themselves are imported from the shared
 `cell_translator.models.cyclegan` module.
 
-TensorFlow was not explicitly seeded in the source notebooks. Therefore a
-fresh CycleGAN run reproduces the reported architecture, objective, data split,
-and hyperparameters but is not expected to regenerate the original GAN weights
-bit-for-bit. Exact numerical reproduction is strongest when the archived model
-or translated output is available.
 
 ## Run
 
@@ -88,10 +79,7 @@ python applications/acute_leukemia/run.py \
 ## Outputs retained for reproducibility
 
 Each workflow saves expected-expression, globally hard-thresholded, and
-library-size-matched translations. This is intentional because the original
-notebooks used different decoded outputs for different validation blocks.
-The YAML specifies which output reproduces the final per-gene distribution
-analysis.
+library-size-matched translations. 
 
 The public evaluation retains the model-performance analyses needed to support
 the application:
@@ -103,22 +91,8 @@ the application:
 - per-gene KS and Wasserstein distances
 - final linear-space log2FC recovery
 
-## Downstream analyses intentionally omitted
-
-The source notebooks also contain extensive latent-axis/Jacobian sensitivity,
-marker-category trajectories, kNN biological-state comparisons, healthy versus
-disease driver comparisons, and disease-deviation/category analyses. These are
-post-hoc biological explorations rather than requirements for reproducing the
-core Cell Translator translation results, so they are not part of the main
-public execution path.
-
-The notebooks also contain Integrated Gradients/DriverScore analyses. They are
-not included in this minimal application package because the later DriverScore
-combines several of the omitted axis/sensitivity analyses. Including only part
-of that chain would not faithfully reproduce the reported downstream score.
 
 ## Reference values
 
-`configs/acute_leukemia/expected_results.yaml` records the main values printed
-by the source notebooks. Use `validate_results.py` after running/evaluating a
+`configs/acute_leukemia/expected_results.yaml` records the main values. Use `validate_results.py` after running/evaluating a
 workflow to compare reproduced values to those references.
