@@ -55,20 +55,4 @@ trained shared HurdleAE used by several other Cell Translator applications.
 | Adam beta1 | 0.5 |
 | Clipnorm | 1.0 |
 
-The historical notebooks also declared `lambda_pair=4.0` and
-`lambda_mmd=0.5`, but those variables were not used by the final generator
-objective. The active weights were `PAIR_W=5.0` and `MMD_W=2.0`; the public
-configuration records the active objective.
 
-### Historical data schedule
-
-Training latents are standardized using mean and standard deviation calculated
-from the concatenated source and target training latents. The two domains are
-then truncated to the smaller sample count and passed as a paired shuffled
-TensorFlow dataset. This schedule is preserved because changing it to the newer
-independently shuffled/repeated Cell Translator training loop would alter the
-reported analysis.
-
-TensorFlow was not explicitly seeded in the source notebooks. Consequently,
-a fresh CycleGAN retraining reproduces the method and hyperparameters but is
-not expected to reproduce the original generator weights bit-for-bit.
