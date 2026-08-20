@@ -1,6 +1,6 @@
 # Perturbation benchmark parameter reference
 
-| Component | Recorded setting |
+| Component |Setting |
 |---|---|
 | Common cells | 2,106 CellOT held-out control cells |
 | Genes | 18,614 |
