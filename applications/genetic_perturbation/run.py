@@ -1,13 +1,18 @@
 """Genetic perturbation application runner.
 
-This module defines the application-specific control→perturbation workflow and
-imports the shared Cell Translator model/training code from ``cell_translator``.
-It supports two modes:
+This module defines the application-specific control-to-perturbation workflow
+and imports the shared Cell Translator model and training components from
+``cell_translator``.
 
-``archived`` recomputes predictions from manuscript-era saved models and is the
-preferred path for exact numerical result reproduction.
-``retrain`` reruns Stage 1 and Stage 2 from the processed matrices using the
-parameters recorded in the YAML configuration.
+It supports two execution modes:
+
+``archived``
+    Recomputes predictions from previously trained model artifacts and is the
+    preferred mode for reproducing the reported numerical results.
+
+``retrain``
+    Retrains Stage 1 and Stage 2 from the processed expression matrices using
+    the parameters specified in the YAML configuration.
 """
 
 from __future__ import annotations
