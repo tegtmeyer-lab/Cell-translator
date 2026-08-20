@@ -1,9 +1,10 @@
 """Generate the consolidated held-out result suite for one perturbation.
 
-This module replaces the repeated gene-specific result-suite cells in the
-original analysis. Numerical definitions and embedding settings are preserved;
-plot labels are generated from the selected perturbation instead of being
-hard-coded separately for each gene.
+This module evaluates held-out Cell Translator predictions using the
+application's predefined gene-expression and latent-space metrics.
+Numerical definitions and embedding settings are preserved across
+perturbations, while plot labels are generated from the selected
+perturbation rather than hard-coded for individual genes.
 """
 
 from __future__ import annotations
