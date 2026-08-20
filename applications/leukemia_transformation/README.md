@@ -7,8 +7,26 @@ This application reproduces two Cell Translator analyses:
 
 Both workflows use the same model/training implementation but have different
 target states. The application-specific code imports shared model components
-from the canonical `cell_translator` package and does not redefine the
+from the `cell_translator` package and does not redefine the
 HurdleAE or CycleGAN architectures.
+
+## Dataset
+
+The acute leukemia analyses use publicly available single-cell RNA-seq data
+from Granja et al., *Single-cell multiomic analysis identifies regulatory
+programs in mixed-phenotype acute leukemia*.
+
+**GEO accession:** GSE139369 [https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE139369]
+
+The dataset contains healthy bone marrow mononuclear cells (BMMC),
+CD34+-enriched bone marrow cells, and mixed-phenotype acute leukemia (MPAL)
+samples. The Cell Translator analyses use these data for:
+
+- **Healthy hematopoietic differentiation:** CD34+ --> BMMC
+- **Leukemia transformation:** CD34+ --> MPAL
+
+Data are not redistributed with this repository. The original and processed
+data can be downloaded from the GEO accession above.
 
 ## Input data
 
