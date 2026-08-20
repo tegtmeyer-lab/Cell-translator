@@ -26,7 +26,6 @@ hurdle_ae:
   scheduler_patience: 5
   pos_weight_clip_max: 50.0
   inference_batch_size: 256
-  # Historical organoid notebook: masked_mean + eps.
   masked_smooth_l1_eps_mode: additive
 
 cyclegan:
@@ -52,7 +51,6 @@ cyclegan:
   mnn_every: 10
   mnn_pool: 4000
   mmd_sigmas: [1.0, 2.0, 4.0]
-  # Historical organoid notebook: abs(std_fake - std_real + eps).
   moment_eps_mode: difference
   source_shuffle_buffer: 4096
   target_shuffle_buffer: 4096
