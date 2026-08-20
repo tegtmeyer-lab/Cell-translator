@@ -4,6 +4,24 @@ This application reproduces Cell Translator analysis of **NGN3-high endocrine
 progenitor → Endocrine** maturation in the mouse pancreatic development atlas
 GSE132188.
 
+## Dataset
+
+The analysis uses the mouse pancreatic endocrinogenesis single-cell RNA-seq
+dataset from Bastidas-Ponce et al., *Comprehensive single-cell mRNA profiling
+reveals a detailed roadmap for pancreatic endocrinogenesis*.
+
+**GEO accession:** GSE132188
+
+The dataset contains pancreatic epithelial cells collected across embryonic
+stages E12.5–E15.5, with enrichment for NGN3-positive endocrine progenitor
+cells.
+
+[Download data from GEO — GSE132188](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE132188)
+
+Data are not redistributed with this repository. Download the dataset from GEO
+and update the local input path in the application configuration before running
+the workflow.
+
 ## Final analysis path
 
 - source: `Ngn3 high EP` cells at day ≤ 14.5 (1,861 cells)
