@@ -2,25 +2,19 @@
 
 This directory contains the validation-specific reduced model used for the control-cell leave-one-line-out (LOLO) analysis across five neural differentiation transitions.
 
-## Why the model lives under `analyses/`
-
-The LOLO notebook used a deliberately lighter validation configuration rather than the canonical morphology model in `cell_translator/`: a 128-dimensional AE, lower dropout, a generator without the affine output head, and an adversarial/cycle/identity/moment objective without the kNN-pair, MMD, or covariance terms. These definitions are therefore kept local to the LOLO analysis and do not replace the main morphology implementation.
-
 ## Transitions and selected held-out lines
 
 The final five-line evaluation uses:
 
-- Stem→NPC: 10, 15, 20, 21, 9
-- Stem→Neuron: 19, 20, 21, 7, 9
-- Stem→Astrocyte: 10, 11, 12, 5, 6
-- NPC→Neuron: 12, 19, 20, 3, 5
-- NPC→Astrocyte: 10, 11, 12, 18, 5
+- Stem-->NPC: 10, 15, 20, 21, 9
+- Stem-->Neuron: 19, 20, 21, 7, 9
+- Stem-->Astrocyte: 10, 11, 12, 5, 6
+- NPC-->Neuron: 12, 19, 20, 3, 5
+- NPC-->Astrocyte: 10, 11, 12, 18, 5
 
 Lines 22–25 are globally excluded before feature definition, model training, or held-out evaluation.
 
 ## Training configuration
-
-The retraining code preserves the uploaded LOLO training notebook:
 
 - maximum 12,000 training cells per source/target domain
 - maximum 5,000 held-out source and target cells
@@ -38,7 +32,7 @@ python -m analyses.leave_one_line_out.train \
   --transition all
 ```
 
-## Final corrected five-line evaluation
+## Final five-line evaluation
 
 The final post-hoc evaluator used archived fold matrices and reports effect-size Pearson correlation, median feature-wise KS, PCA variance log2 error, and discriminator AUC distance from 0.5:
 
@@ -50,14 +44,3 @@ python -m analyses.leave_one_line_out.plot \
   --results results/leave_one_line_out/archived_evaluation/lodo_five_line_corrected_metrics.csv \
   --outdir results/leave_one_line_out/figures
 ```
-
-### Important provenance note
-
-The supplied full LOLO training notebook selects transition-specific common numeric features after excluding lines 22–25 and produced approximately 3,394 features. The later corrected five-line post-hoc notebook evaluated archived fold outputs with a separately prepared global feature set of 1,633 features. The exact global 1,633-feature preparation/training code was not present in the files supplied for this repository cleanup.
-
-For that reason, this release separates two reproducibility paths instead of silently conflating them:
-
-1. `train.py` faithfully retrains the validation-specific model using the feature-selection procedure present in the supplied training notebook.
-2. `evaluate_archived_folds.py` faithfully recomputes the final corrected metrics from archived fold matrices, including the manuscript-facing log2 PCA variance error.
-
-`configs/validation/lodo_expected_results.yaml` records the final five-line reference values printed by the corrected post-hoc evaluator.
