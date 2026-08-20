@@ -1,8 +1,4 @@
-"""Validation-specific reduced AE and CycleGAN architectures used for LOLO.
-
-These models intentionally remain analysis-local because they are not the
-canonical 256-dimensional morphology models used in the main application.
-"""
+"""Validation-specific reduced AE and CycleGAN architectures used for LOLO."""
 from __future__ import annotations
 import torch
 import torch.nn as nn
