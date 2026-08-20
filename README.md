@@ -44,11 +44,6 @@ classes or training losses.
 pip install -e .
 ```
 
-The source notebooks did not record all exact package-version numbers. The
-requirements therefore list required packages without claiming unavailable
-version provenance. If the original environment file is available, pin those
-versions before archival release.
-
 ## Applications currently organized
 
 ### Neuronal differentiation
