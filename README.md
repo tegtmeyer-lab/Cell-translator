@@ -55,7 +55,7 @@ Clone the repository and install Cell Translator in editable mode:
 git clone https://github.com/tegtmeyer-lab/Cell-translator.git
 cd Cell-translator
 pip install -e .
-
+```
 For full reproducibility, we recommend using the package versions specified in the provided environment or requirements files.
 
 ## Applications
