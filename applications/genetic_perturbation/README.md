@@ -138,7 +138,7 @@ python applications/genetic_perturbation/interpret.py \
   --predictions path/to/APOE/translated_validation_outputs.npz
 ```
 
-The integrated-gradients objective and historical DriverScore formula are
+The integrated-gradients objective and driverscore formula are
 preserved. DriverScore weights and filtering thresholds are read from YAML.
 
 ## 9. Compare Cell Translator with baseline models
