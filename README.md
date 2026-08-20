@@ -1,13 +1,10 @@
 # Cell Translator
 
-Cell Translator is a state-translation framework spanning sparse single-cell
-transcriptomics and continuous Cell Painting morphology. The repository uses one shared implementation of the model
-components and keeps biological preprocessing, source/target definitions,
-evaluation, and validation within independent application directories.
+Cell Translator is a computational framework for predicting cellular state transitions from single-cell transcriptomic and Cell Painting morphology profiles. The repository provides reusable implementations of the Cell Translator model components while preserving application-specific model configurations, biological preprocessing, source and target state definitions, evaluation, and validation workflows.
 
 ## Repository design
 
-**One canonical method implementation; independent application pipelines.**
+**A shared Cell Translator framework with independent application-specific pipelines.**
 
 Shared code lives under `cell_translator/`:
 
@@ -40,14 +37,15 @@ classes or training losses.
 
 ## Install
 
+Clone the repository and install Cell Translator in editable mode:
+
 ```bash
+git clone <repository-url>
+cd Cell-Translator
 pip install -e .
 ```
 
-The source notebooks did not record all exact package-version numbers. The
-requirements therefore list required packages without claiming unavailable
-version provenance. If the original environment file is available, pin those
-versions before archival release.
+For full reproducibility, we recommend using the package versions specified in the provided environment or requirements files.
 
 ## Applications currently organized
 
@@ -72,7 +70,6 @@ See [`applications/genetic_perturbation/README.md`](applications/genetic_perturb
 for preparation, archived-model reproduction, retraining, evaluation,
 interpretation, baseline comparison, and result-validation commands.
 
-
 ### Cerebral organoid maturation
 
 The organoid application contains one shared maturation workflow with three
@@ -82,15 +79,15 @@ See [`applications/cerebral_organoid/README.md`](applications/cerebral_organoid/
 
 ### Pancreatic endocrine differentiation
 
-The pancreatic application reproduces NGN3-high endocrine progenitor →
+The pancreatic application reproduces NGN3-high endocrine progenitor -->
 Endocrine translation in GSE132188 using the final 5,003-gene input.
 
 See [`applications/pancreatic_endocrine/README.md`](applications/pancreatic_endocrine/README.md).
 
 ### Acute leukemia
 
-The acute leukemia application contains two workflows: healthy CD34+ -> BMMC
-differentiation and CD34+ -> MPAL leukemia transformation. It preserves the
+The acute leukemia application contains two workflows: healthy CD34+ --> BMMC
+differentiation and CD34+ --> MPAL leukemia transformation. It preserves the
 independent-state HurdleAE and historical acute-leukemia CycleGAN training
 variant used in the source analyses.
 
@@ -101,7 +98,7 @@ See [`applications/acute_leukemia/README.md`](applications/acute_leukemia/README
 The morphology application uses state-specific dense autoencoders and a
 morphology-specific latent CycleGAN for Cell Painting profiles. The organized
 workflow covers the coherent 3,409-feature control-line translations and the
-verified deletion Stem→NPC and NPC→Astrocyte translations.
+verified deletion Stem->NPC and NPC->Astrocyte translations.
 
 See [`applications/cell_painting_morphology/README.md`](applications/cell_painting_morphology/README.md).
 
