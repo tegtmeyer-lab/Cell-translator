@@ -1,0 +1,82 @@
+application: cell_painting_morphology
+
+features:
+  expected_n_features: 3409
+  reference_feature_file: null
+  drop_patterns:
+    - imagenumber
+    - objectnumber
+    - parent_
+    - children_
+    - location_
+    - center_x
+    - center_y
+    - plate
+    - well
+    - site
+    - field
+    - row
+    - column
+    - filename
+    - pathname
+    - url
+    - metadata_
+    - number_object
+
+morphology_ae:
+  latent_dim: 256
+  epochs: 100
+  batch_size: 128
+  learning_rate: 0.0001
+  validation_fraction: 0.20
+  split_random_state: 42
+  patience: 20
+  lambda_variance: 2.0
+  lambda_covariance: 0.1
+  weight_decay: 0.00001
+  scheduler_factor: 0.5
+  scheduler_patience: 8
+  gradient_clip: 1.0
+  early_stopping_min_delta: 0.000001
+  inference_batch_size: 256
+  # The source notebook did not explicitly seed PyTorch before AE training.
+  torch_seed: null
+
+cyclegan:
+  epochs: 300
+  batch_size: 32
+  gp_weight: 10.0
+  drift_eps: 0.001
+  n_critic: 5
+  lambda_cycle: 5.0
+  lambda_identity: 0.5
+  pair_weight: 1.0
+  mmd_weight: 1.0
+  covariance_weight: 0.2
+  moment_weight: 2.0
+  knn_k: 5
+  bank_sample: 8192
+  mmd_sigmas: [0.5, 1.0, 2.0]
+  learning_rate: 0.0001
+  lr_decay_steps: 8000
+  lr_decay_rate: 0.9
+  adam_beta1: 0.5
+  clipnorm: 1.0
+  shuffle_buffer: 4096
+  steps_per_epoch_from: minimum
+  # The source notebook did not explicitly seed TensorFlow.
+  tensorflow_seed: null
+
+evaluation:
+  seed: 42
+
+effect_size:
+  remove_neighbor_features: true
+
+interpretation:
+  ig_steps: 64
+  max_samples: 1024
+  batch_size: 16
+  seed: 42
+  baseline: mean
+  category_quantile: 0.75

@@ -1,0 +1,40 @@
+common_config: common.yaml
+workflow_name: deletion_line45
+selection:
+  line_id: '45'
+  genotype: deletion
+paths:
+  prepared_dir: path/to/prepared/morphology/deletion_line45
+  output_dir: path/to/results/morphology/deletion_line45
+states:
+  stem:
+    input_parquet: path/to/annotated/stem.parquet
+  npc:
+    input_parquet: path/to/annotated/npc.parquet
+  astro2:
+    input_parquet: path/to/annotated/astrocyte_batch2.parquet
+features:
+  reference_feature_file: path/to/prepared/morphology/control_line24/common_feature_columns.csv
+transitions:
+- label: Stem → NPC
+  source: stem
+  target: npc
+  enabled: true
+  evaluation:
+    correlation_sampling: equal
+    ks_sampling: equal
+    std_ddof: 0
+    nan_aware: false
+    nn_method: validation_unscaled_1nn
+- label: NPC → Astrocyte
+  source: npc
+  target: astro2
+  enabled: true
+  evaluation:
+    correlation_sampling: equal
+    ks_sampling: equal
+    std_ddof: 0
+    nan_aware: false
+    nn_method: validation_unscaled_1nn
+cyclegan:
+  steps_per_epoch_from: minimum

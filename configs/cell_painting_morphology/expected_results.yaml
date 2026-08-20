@@ -1,0 +1,123 @@
+control_line24:
+  feature_count: 3409
+  ae:
+    stem:
+      n_cells: 10243
+      median_r2: 0.772462
+      frac_r2_gt_0_5: 0.774421
+      feature_mean_pearson_r: 0.999808
+      feature_std_pearson_r: 0.999634
+      overall_value_pearson_r: 0.972420
+      best_epoch: 96
+      best_val: 0.450863
+    npc:
+      n_cells: 19209
+      median_r2: 0.840976
+      frac_r2_gt_0_5: 0.878850
+      feature_mean_pearson_r: 0.999840
+      feature_std_pearson_r: 0.999047
+      overall_value_pearson_r: 0.982652
+      best_epoch: 95
+      best_val: 0.224577
+    neuron1:
+      n_cells: 2828
+      median_r2: 0.781637
+      frac_r2_gt_0_5: 0.782928
+      feature_mean_pearson_r: 0.999938
+      feature_std_pearson_r: 0.999033
+      overall_value_pearson_r: 0.959324
+      best_epoch: 99
+      best_val: 0.332410
+    astro1:
+      n_cells: 2310
+      median_r2: 0.774039
+      frac_r2_gt_0_5: 0.768847
+      feature_mean_pearson_r: 0.999979
+      feature_std_pearson_r: 0.999802
+      overall_value_pearson_r: 0.977554
+      best_epoch: 100
+      best_val: 0.393406
+  translations:
+    "Stem → NPC":
+      feature_mean_pearson_r: 0.999757
+      feature_std_pearson_r: 0.997446
+      median_ks: 0.056340
+      target_nn_percent: 99.902391
+      n_compared: 2049
+    "NPC → Neuron":
+      feature_mean_pearson_r: 0.999876
+      feature_std_pearson_r: 0.997066
+      median_ks: 0.097173
+      target_nn_percent: 63.560645
+      n_compared: 566
+    "NPC → Astrocyte":
+      feature_mean_pearson_r: 0.999968
+      feature_std_pearson_r: 0.999377
+      median_ks: 0.087124
+      target_nn_percent: 94.117647
+      n_compared: 462
+
+deletion_line45:
+  feature_count: 3409
+  ae:
+    stem:
+      n_cells: 15607
+      median_r2: 0.814360
+      frac_r2_gt_0_5: 0.834262
+      feature_mean_pearson_r: 0.999976
+      feature_std_pearson_r: 0.999948
+      overall_value_pearson_r: 0.983129
+      best_epoch: 99
+      best_val: 0.264983
+    npc:
+      n_cells: 74559
+      median_r2: 0.834241
+      frac_r2_gt_0_5: 0.878557
+      feature_mean_pearson_r: 0.999932
+      feature_std_pearson_r: 0.999311
+      overall_value_pearson_r: 0.986112
+      best_epoch: 92
+      best_val: 0.225780
+    astro2:
+      n_cells: 2695
+      median_r2: 0.746191
+      frac_r2_gt_0_5: 0.757700
+      feature_mean_pearson_r: 0.999775
+      feature_std_pearson_r: 0.999669
+      overall_value_pearson_r: 0.977359
+      best_epoch: 100
+      best_val: 0.303156
+  translations:
+    "Stem → NPC":
+      feature_mean_pearson_r: 0.999836
+      feature_std_pearson_r: 0.997717
+      median_ks: 0.055413
+      target_nn_percent: 99.967969
+      n_compared: 3122
+    "NPC → Astrocyte":
+      feature_mean_pearson_r: 0.999749
+      feature_std_pearson_r: 0.999302
+      median_ks: 0.094620
+      target_nn_percent: 96.289425
+      n_compared: 539
+
+effect_size_comparison:
+  shared_features_after_neighbor_removal: 3394
+  "Stem → NPC":
+    control_measured_vs_translated_pearson_r: 0.920563
+    deletion_measured_vs_translated_pearson_r: 0.916988
+    control_vs_deletion_measured_pearson_r: 0.864183
+    control_vs_deletion_translated_pearson_r: 0.841354
+  "NPC → Astrocyte":
+    control_measured_vs_translated_pearson_r: 0.996857
+    deletion_measured_vs_translated_pearson_r: 0.973601
+    control_vs_deletion_measured_pearson_r: 0.898265
+    control_vs_deletion_translated_pearson_r: 0.902891
+
+excluded_source_notebook_result:
+  transition: "Deletion NPC → Neuron"
+  reason: >-
+    The deletion neuron data were prepared, but the later AE dictionary used the
+    earlier control-neuron variable. The notebook's deletion neuron AE summary
+    therefore contains 2,828 cells, matching the control-neuron count, and is not
+    a valid deletion-neuron result.
