@@ -58,11 +58,6 @@ python applications/genetic_perturbation/run.py \
 Replace `APOE` and its YAML with `MSI2`, `NR1H3`, `LRRC4C`, or `ANKRD12` for the
 other applications.
 
-**Why archived mode is the exact-results path:** the source notebook set the
-NumPy/PyTorch seed for Stage 1 but did not set a TensorFlow random seed for the
-CycleGAN. Therefore a fresh Stage-2 retraining faithfully repeats the reported
-procedure but is not expected to reproduce the original GAN weights bit-for-bit.
-
 ## 3. Retrain from the processed matrices
 
 ```bash
