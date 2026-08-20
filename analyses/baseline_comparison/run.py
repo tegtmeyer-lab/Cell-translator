@@ -2,8 +2,7 @@
 """Compare Cell Translator perturbation predictions with simple baselines.
 
 This module reproduces the distribution-level benchmark implemented in the
-source analysis while removing notebook-only fragments and machine-specific
-paths. Inputs are supplied through a YAML configuration file.
+source analysis. Inputs are supplied through a YAML configuration file.
 """
 from __future__ import annotations
 
