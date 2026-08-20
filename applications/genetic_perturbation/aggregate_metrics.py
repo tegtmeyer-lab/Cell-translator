@@ -1,8 +1,7 @@
 """Aggregate gene-mean prediction metrics across the five perturbations.
 
 This reproduces the final combined analysis that compares the distribution of
-per-gene mean expression values (not the per-gene cell-level KS statistics used
-in the model-comparison summary).
+per-gene mean expression values.
 """
 
 from __future__ import annotations
