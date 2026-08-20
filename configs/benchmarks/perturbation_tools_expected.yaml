@@ -1,6 +1,5 @@
 columns: [perturbation, model, poor_count, poor_percent, detection_r, effect_top5000_r]
 
-# Final values already archived in the genetic-perturbation comparison notebook/output.
 # These rows are used only to validate the benchmark outputs after they are passed
 # through applications/genetic_perturbation/compare_models.py.
 final_comparison:
