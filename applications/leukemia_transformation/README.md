@@ -43,7 +43,7 @@ All filesystem locations in the YAML files are placeholders.
 ## Stage 1 architecture
 
 Unlike several other Cell Translator applications, acute leukemia trains a
-**separate HurdleAE for each biological state**. The historical decoder is also
+**separate HurdleAE for each biological state**. The decoder is also
 shallower than the shared HurdleAE used by the neuronal, organoid, and
 pancreatic applications. The exact architecture and loss are implemented once
 in:
@@ -56,11 +56,13 @@ The reported configuration uses a 128-dimensional latent space, batch size
 
 ## Stage 2 training variant
 
-The acute-leukemia notebooks use a historical CycleGAN training schedule that
-is not identical to the later default Cell Translator loop. Source and target
-training latents are standardized jointly, truncated to the smaller sample
-count, paired by row in one shuffled TensorFlow dataset, and trained with the
-acute-leukemia-specific alignment weights. This is preserved in
+The acute leukemia application uses an application-specific CycleGAN training
+configuration. Source and target training latents are standardized jointly,
+truncated to the smaller sample count, paired by row within a shuffled
+TensorFlow dataset, and trained using the acute-leukemia-specific alignment
+weights.
+
+This training variant is implemented in
 `cell_translator/training/acute_leukemia_cyclegan_training.py`.
 
 The generator/critic architectures themselves are imported from the shared
