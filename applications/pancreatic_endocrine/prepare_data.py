@@ -1,6 +1,6 @@
 """Prepare the GSE132188 NGN3-high-EP to Endocrine translation matrices.
 
-The source atlas is already normalized/log1p in the analysis notebook. The
+The source atlas is already normalized/log1p. The
 reported model was trained after selecting 5,000 Seurat-flavor HVGs on the
 combined source/target subset and then force-including three additional
 endocrine marker genes that were not among those HVGs, yielding 5,003 genes.
