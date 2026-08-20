@@ -1,5 +1,4 @@
-# Replace only the placeholder paths below. No machine-specific paths
-# are stored in the public repository.
+# Replace only the placeholder paths below. 
 input:
   combined_h5ad: "path/to/neuron_ctrl_plus_5perts.h5ad"
 output:
