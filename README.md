@@ -44,6 +44,11 @@ classes or training losses.
 pip install -e .
 ```
 
+The source notebooks did not record all exact package-version numbers. The
+requirements therefore list required packages without claiming unavailable
+version provenance. If the original environment file is available, pin those
+versions before archival release.
+
 ## Applications currently organized
 
 ### Neuronal differentiation
@@ -89,7 +94,7 @@ differentiation and CD34+ -> MPAL leukemia transformation. It preserves the
 independent-state HurdleAE and historical acute-leukemia CycleGAN training
 variant used in the source analyses.
 
-See [`applications/leukemia_transformation/README.md`](applications/leukemia_transformation/README.md).
+See [`applications/acute_leukemia/README.md`](applications/acute_leukemia/README.md).
 
 ### Cell Painting morphology
 
@@ -106,3 +111,24 @@ Tracked YAML files contain placeholder paths only. No machine-specific,
 user-specific, or compute-environment paths are required by the source code.
 Processed matrices are expected to preserve the exact gene order described by
 each application.
+
+## Validation and benchmarking analyses
+
+Reviewer-facing validation and benchmarking code that is not itself a biological application lives under `analyses/`.
+
+### Perturbation baseline comparison
+
+Compares archived Cell Translator predictions with Identity, MeanShift,
+NearestNeighbor, and LinearLatentShift baselines using perturbation-effect,
+distributional, and discriminator metrics.
+
+See [`analyses/baseline_comparison/README.md`](analyses/baseline_comparison/README.md).
+
+### Leave-one-line-out morphology validation
+
+Evaluates generalization to entirely held-out control cell lines across five
+neural differentiation transitions. The historically used reduced validation
+architecture is kept local to this analysis and does not replace the canonical
+morphology implementation.
+
+See [`analyses/leave_one_line_out/README.md`](analyses/leave_one_line_out/README.md).
