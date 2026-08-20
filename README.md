@@ -89,7 +89,7 @@ differentiation and CD34+ -> MPAL leukemia transformation. It preserves the
 independent-state HurdleAE and historical acute-leukemia CycleGAN training
 variant used in the source analyses.
 
-See [`applications/acute_leukemia/README.md`](applications/acute_leukemia/README.md).
+See [`applications/leukemia_transformation/README.md`](applications/leukemia_transformation/README.md).
 
 ### Cell Painting morphology
 
