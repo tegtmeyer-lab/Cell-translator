@@ -1,4 +1,4 @@
-"""Compare reproduced primary-organoid metrics with notebook reference values."""
+"""Compare reproduced primary-organoid metrics with reference values."""
 from __future__ import annotations
 import argparse, json
 from pathlib import Path
