@@ -1,5 +1,5 @@
 common_config: common.yaml
-dataset_name: Independent cerebral organoid maturation dataset (18 days to 61 days)
+dataset_name: Fleck et al. brain organoid developmental time course (18 days to 61 days)
 run_name: shared_hurdleAE_organoid_18d_61d
 source_state: 18d
 target_state: 61d
