@@ -4,7 +4,7 @@ This application evaluates Cell Translator on three independent scRNA-seq cerebr
 
 | Dataset                                                     | Config                 |   HVGs | Translation         | Public data                                                                       |
 | ----------------------------------------------------------- | ---------------------- | -----: | ------------------- | --------------------------------------------------------------------------------- |
-| **Cortical Organoids Atlas — Uzquiano et al.**              | `primary_scp1756.yaml` | 15,000 | 2 months → 6 months | [Broad Single Cell Portal, **SCP1756**](https://singlecell.broadinstitute.org/single_cell/study/SCP1756                                             |
+| **Cortical Organoids Atlas - Uzquiano et al.**              | `primary_scp1756.yaml` | 5,000 | 2 months → 6 months | [Broad Single Cell Portal, **SCP1756**](https://singlecell.broadinstitute.org/single_cell/study/SCP1756                                             |
 | **Human Neural Organoid Atlas (HNOCA) — He et al.**         | `hnoca_he.yaml`        |  5,000 | 15 days → 60 days   | [Zenodo, **HNOCA cleaned datasets**](https://zenodo.org/records/14161275)                                                |
 | **Brain organoid developmental time course — Fleck et al.** | `third_organoid.yaml`  |  5,000 | 18 days → 61 days   | [Zenodo processed data; raw developmental scRNA-seq: **ArrayExpress E-MTAB-12001**](https://zenodo.org/records/5242913) |
 
