@@ -4,8 +4,7 @@ This application evaluates Cell Translator on three independent scRNA-seq cerebr
 
 ## Datasets and final translation pairs
 
-| Dataset                                                     | Config                 |   HVGs | Translation         |                                                                       |
-| ----------------------------------------------------------- | ---------------------- | -----: | ------------------- |
+| Dataset                                                     | Config                 |   HVGs | Translation         |              
 | **Cortical Organoids Atlas - Uzquiano et al.** 
 https://singlecell.broadinstitute.org/single_cell/study/SCP1756/cortical-organoids-atlas?             | `primary_scp1756.yaml` | 5,000 | 2 months → 6 months |                                        |
 | **Human Neural Organoid Atlas (HNOCA) — He et al.**
