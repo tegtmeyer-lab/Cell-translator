@@ -9,6 +9,16 @@ This application evaluates Cell Translator on three independent scRNA-seq cerebr
 | **Brain organoid developmental time course — Fleck et al.** | `third_organoid.yaml`  |  5,000 | 18 days → 61 days   | [Zenodo processed data; raw developmental scRNA-seq: **ArrayExpress E-MTAB-12001**](https://zenodo.org/records/5242913) |
 
 
+## Datasets
+
+The cerebral organoid analyses use three publicly available single-cell RNA-seq datasets:
+
+| Dataset | Translation | Data access |
+|---|---|---|
+| Uzquiano et al. cortical organoid atlas | 2 months --> 6 months | [Broad Single Cell Portal — SCP1756](https://singlecell.broadinstitute.org/single_cell/study/SCP1756) |
+| He et al. Human Neural Organoid Cell Atlas (HNOCA) | 15 days --> 60 days | [HNOCA cleaned datasets — Zenodo](https://zenodo.org/records/14161275) |
+| Fleck et al. brain organoid developmental time course | 18 days --> 61 days | [Processed data — Zenodo](https://zenodo.org/records/5242913) / [Raw scRNA-seq — ArrayExpress E-MTAB-12001](https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MTAB-12001) |
+
 For the primary dataset, HVGs are selected jointly across the 1-, 2-, 3-, 4-, 5-, and 6-month samples. For HNOCA/He, exact ages 15, 30, 60, 90, 120, 150, and 180 days are used for HVG selection. For the third dataset, exact ages 4, 9, 12, 18, 21, and 61 days are used.
 
 The supplied matrices are already normalized/log1p. No additional normalization or final QC filtering is applied before HVG selection. HVGs are selected with Scanpy `flavor="seurat_v3"` and `batch_key="timepoint"`. Scanpy can therefore emit a warning that Seurat-v3 HVG selection expects raw counts.
