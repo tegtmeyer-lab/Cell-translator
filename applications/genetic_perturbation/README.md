@@ -86,9 +86,7 @@ evaluation/effect_summaries.npz
 ```
 
 The single-perturbation result suite uses held-out control and held-out target
-cells. Three fold-change/effect definitions appeared in different notebook
-analyses and are deliberately kept separate in `evaluation.py` rather than
-silently harmonized.
+cells.
 
 ## 5. Recreate the consolidated single-perturbation figures
 
@@ -167,9 +165,9 @@ These are distinct analyses: the latter applies KS/Wasserstein tests to the
 **distribution of gene means**, whereas the model-comparison summary evaluates
 **per-gene cell-level distributions**.
 
-## 10. Validate against notebook reference values
+## 10. Validate against reference values
 
-Reference values printed by the source notebook are stored only for checking
+Reference values stored only for checking
 reproduction; they are never consumed by model training.
 
 ```bash
@@ -190,8 +188,5 @@ python applications/genetic_perturbation/validate_results.py \
   `test_size=0.20` and seed 42. This 20% subset is a validation/held-out subset.
 - The HurdleAE training loop intentionally consumes the two training loaders
   with `zip()` and `drop_last=True`; the smaller perturbation domain therefore
-  determines the number of Stage-1 updates per epoch. This behavior is retained
-  because changing it would change the reported model.
-- The original notebook does not record exact package-version numbers. The
-  repository specifies required packages, but exact environment pinning should
-  be added if the original environment specification is available.
+  determines the number of Stage-1 updates per epoch. 
+
