@@ -35,6 +35,12 @@ cell_translator/
 Application scripts import these implementations rather than redefining model
 classes or training losses.
 
+## Data preprocessing
+
+Raw single-cell RNA-seq data were processed using Scanpy following its standard single-cell preprocessing workflow. Application-specific quality-control filters, normalization, gene selection, and output formatting used to generate the Cell Translator input matrices are documented in the corresponding application directories.
+
+See the [Scanpy preprocessing and clustering tutorial](https://scanpy.readthedocs.io/en/stable/tutorials/basics/clustering.html) for the general preprocessing workflow.
+
 ## Install
 
 Clone the repository and install Cell Translator in editable mode:
