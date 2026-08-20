@@ -55,23 +55,36 @@ scgen:
   recorded_scvi_tools_version: "1.3.3"
 
 scgpt:
-  # The supplied notebook is not a complete from-scratch scGPT training recipe.
-  # This section reproduces the final postprocessing from archived raw prediction NPZ files.
   output_root: "path/to/benchmark_outputs/scgpt"
-  raw_npz:
-    APOE: "path/to/scgpt_raw/APOE_plus_ctrl_CTRL2106.npz"
-    MSI2: "path/to/scgpt_raw/MSI2_plus_ctrl_CTRL2106.npz"
-    NR1H3: "path/to/scgpt_raw/NR1H3_plus_ctrl_CTRL2106.npz"
-    LRRC4C: "path/to/scgpt_raw/LRRC4C_plus_ctrl_CTRL2106.npz"
-    ANKRD12: "path/to/scgpt_raw/ANKRD12_plus_ctrl_CTRL2106.npz"
-  prediction_semantics: "delta_to_absolute_control_mean"
+  raw_output_dir: "path/to/benchmark_outputs/scgpt/raw"
+
+  gears_workdir: "path/to/gears_data"
+  gears_dataset_name: "neuron_5perts_plusctrl"
+  rebuild_gears_data: true
+
+  pretrained_model_dir: "path/to/scgpt_brain_checkpoint"
+
+  device: "cpu"
+  seed: 42
+  split_seed: 1
+  test_fraction: 0.10
+
+  train_batch_size: 8
+  inference_batch_size: 8
+  num_workers: 0
+
+  max_seq_len: 256
+  epochs: 2
+  learning_rate: 0.001
+  gradient_clip: 1.0
+
+  dropout: 0.2
+  use_fast_transformer: false
+
+  backbone_prefixes:
+    - encoder
+    - value_encoder
+    - transformer_encoder
+
   clip_nonnegative: true
   detection_threshold: 1.0e-6
-  recorded_python: "3.10"
-  recorded_scgpt_version: "0.2.4"
-  recorded_torch_version: "2.3.1+cu118"
-  recorded_torchtext_version: "0.18.0+cpu"
-  # Not recorded/defined in the supplied notebook and therefore not invented here:
-  max_seq_len: null
-  gears_version: null
-  torch_geometric_version: null
