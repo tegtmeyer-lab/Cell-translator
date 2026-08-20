@@ -1,10 +1,4 @@
-"""Integrated-gradients driver-gene analysis for genetic perturbations.
-
-The repeated gene-specific notebook implementations are consolidated here. The
-IG objective and DriverScore formula are preserved exactly; the code names the
-historical DriverScore fold-change calculation explicitly because it differs
-from the dedicated linear-space log2FC analysis used elsewhere in the notebook.
-"""
+"""Integrated-gradients driver-gene analysis for genetic perturbations."""
 
 from __future__ import annotations
 
