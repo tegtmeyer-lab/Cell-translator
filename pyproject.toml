@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "cell-translator"
 version = "1.0.0"
-description = "HurdleAE + latent-space CycleGAN framework for single-cell state translation"
+description = "Cell Translator framework for transcriptomic and Cell Painting state translation"
 requires-python = ">=3.10"
 dependencies = [
   "numpy",
@@ -19,6 +19,7 @@ dependencies = [
   "tensorflow",
   "scanpy",
   "umap-learn",
+  "pyarrow",
 ]
 
 [tool.setuptools.packages.find]

@@ -12,3 +12,6 @@ torch
 tensorflow
 scanpy
 umap-learn
+
+# Parquet engine used by the Cell Painting morphology application.
+pyarrow

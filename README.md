@@ -1,7 +1,7 @@
 # Cell Translator
 
-Cell Translator is a HurdleAE + latent-space CycleGAN framework for translating
-single-cell states. The repository uses one shared implementation of the model
+Cell Translator is a state-translation framework spanning sparse single-cell
+transcriptomics and continuous Cell Painting morphology. The repository uses one shared implementation of the model
 components and keeps biological preprocessing, source/target definitions,
 evaluation, and validation within independent application directories.
 
@@ -17,16 +17,21 @@ cell_translator/
 │   ├── hurdle_ae.py
 │   ├── perturbation_hurdle_ae.py
 │   ├── independent_hurdle_ae.py
+│   ├── morphology_ae.py
+│   ├── morphology_cyclegan.py
 │   └── cyclegan.py
 ├── training/
 │   ├── hurdle_ae_training.py
 │   ├── perturbation_hurdle_ae_training.py
 │   ├── independent_hurdle_ae_training.py
 │   ├── acute_leukemia_cyclegan_training.py
+│   ├── morphology_ae_training.py
+│   ├── morphology_cyclegan_training.py
 │   └── cyclegan_training.py
 ├── inference/
 │   ├── translate.py
-│   └── perturbation.py
+│   ├── perturbation.py
+│   └── morphology.py
 └── utils/
 ```
 
@@ -90,6 +95,15 @@ independent-state HurdleAE and historical acute-leukemia CycleGAN training
 variant used in the source analyses.
 
 See [`applications/acute_leukemia/README.md`](applications/acute_leukemia/README.md).
+
+### Cell Painting morphology
+
+The morphology application uses state-specific dense autoencoders and a
+morphology-specific latent CycleGAN for Cell Painting profiles. The organized
+workflow covers the coherent 3,409-feature control-line translations and the
+verified deletion Stem→NPC and NPC→Astrocyte translations.
+
+See [`applications/cell_painting_morphology/README.md`](applications/cell_painting_morphology/README.md).
 
 ## Paths and data
 
