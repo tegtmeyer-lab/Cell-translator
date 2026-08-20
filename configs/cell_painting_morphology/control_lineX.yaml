@@ -1,11 +1,11 @@
 common_config: common.yaml
-workflow_name: control_line24
+workflow_name: control_lineX
 selection:
-  line_id: '24'
+  line_id: 'X'
   genotype: control
 paths:
-  prepared_dir: path/to/prepared/morphology/control_line24
-  output_dir: path/to/results/morphology/control_line24
+  prepared_dir: path/to/prepared/morphology/control_lineX
+  output_dir: path/to/results/morphology/control_lineX
 states:
   stem:
     input_parquet: path/to/annotated/stem.parquet
@@ -16,7 +16,7 @@ states:
   astro1:
     input_parquet: path/to/annotated/astrocyte_batch1.parquet
 transitions:
-- label: Stem → NPC
+- label: Stem -> NPC
   source: stem
   target: npc
   enabled: true
@@ -26,7 +26,7 @@ transitions:
     std_ddof: 1
     nan_aware: true
     nn_method: train_common_scaled_5nn
-- label: NPC → Neuron
+- label: NPC -> Neuron
   source: npc
   target: neuron1
   enabled: true
@@ -36,7 +36,7 @@ transitions:
     std_ddof: 0
     nan_aware: false
     nn_method: validation_unscaled_5nn
-- label: NPC → Astrocyte
+- label: NPC -> Astrocyte
   source: npc
   target: astro1
   enabled: true
