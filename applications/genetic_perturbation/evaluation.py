@@ -1,7 +1,5 @@
 """Evaluation metrics for genetic perturbation translation.
 
-The notebook used several distinct summaries in different figures. They are
-kept as explicitly named functions here rather than silently conflating them:
 (1) per-gene distribution fidelity on held-out cells, (2) the historical LFC
 summary used in the single-perturbation result suite, and (3) the mean-log1p
 shift used in the final multi-model comparison.
