@@ -6,8 +6,6 @@ GSE132188.
 
 ## Final analysis path
 
-The reproducibility workflow follows the final executed notebook path:
-
 - source: `Ngn3 high EP` cells at day ≤ 14.5 (1,861 cells)
 - target: `Endocrine` cells at day ≥ 14.5 (2,621 cells)
 - input atlas: already normalized/log1p in the source analysis
@@ -19,10 +17,6 @@ The reproducibility workflow follows the final executed notebook path:
 - translation/evaluation: held-out source cells (372 translated cells) against
   held-out target cells (525 measured cells)
 
-Earlier notebook blocks that used the atlas-provided 3,999-HVG mask or the
-case-mismatched 5,000-gene marker-forcing attempt are exploratory and are not
-used in this workflow because they did not generate the reported 5,003-gene
-model.
 
 ## Prepare data
 
@@ -44,11 +38,6 @@ python applications/pancreatic_endocrine/prepare_data.py   --config configs/panc
 python applications/pancreatic_endocrine/run.py   --config configs/pancreatic_endocrine/gse132188_ngn3_to_endocrine.yaml   --all   --no-show-plots
 ```
 
-The source notebook did not explicitly seed TensorFlow. A fresh CycleGAN run
-therefore reproduces the reported architecture, losses, and training
-hyperparameters but is not expected to recreate identical GAN weights
-bit-for-bit. For exact numerical validation, use the archived trained forward
-generator/translated output when available.
 
 ## Fold-change and interpretability
 
@@ -71,4 +60,4 @@ python applications/pancreatic_endocrine/validate_results.py   --metrics path/to
 ```
 
 The reference values in `expected_results.yaml` were transcribed from the
-executed notebook outputs and are intended as reproducibility checks.
+executed outputs and are intended as reproducibility checks.
