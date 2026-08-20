@@ -1,8 +1,7 @@
 """Run a healthy-differentiation or leukemia-transformation Cell Translator workflow.
 
 The application imports the state-specific HurdleAE and acute-leukemia
-CycleGAN training variants from the canonical ``cell_translator`` package;
-model classes and shared training functions are not redefined here.
+CycleGAN training variants from the ``cell_translator`` package.
 """
 from __future__ import annotations
 
