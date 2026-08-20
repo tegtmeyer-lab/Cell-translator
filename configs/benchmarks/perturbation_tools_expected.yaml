@@ -1,0 +1,30 @@
+columns: [perturbation, model, poor_count, poor_percent, detection_r, effect_top5000_r]
+
+# Final values already archived in the genetic-perturbation comparison notebook/output.
+# These rows are used only to validate the benchmark outputs after they are passed
+# through applications/genetic_perturbation/compare_models.py.
+final_comparison:
+  - [NR1H3, scGEN, 18365, 98.662297, 0.382120, 0.957139]
+  - [NR1H3, CellOT, 18543, 99.618567, 0.136905, 0.664720]
+  - [NR1H3, scGPT, 12520, 67.261201, 0.679892, -0.263037]
+  - [LRRC4C, scGEN, 18505, 99.414419, 0.404995, 0.977269]
+  - [LRRC4C, CellOT, 18594, 99.892554, 0.086745, 0.619807]
+  - [LRRC4C, scGPT, 12623, 67.814548, 0.670816, 0.293010]
+  - [MSI2, scGEN, 18434, 99.032986, 0.460171, 0.971730]
+  - [MSI2, CellOT, 18592, 99.881809, 0.081975, 0.638100]
+  - [MSI2, scGPT, 12699, 68.222843, 0.680527, 0.357248]
+  - [APOE, scGEN, 18365, 98.662297, 0.381828, 0.961058]
+  - [APOE, CellOT, 18538, 99.591705, 0.140413, 0.663618]
+  - [APOE, scGPT, 18614, 100.000000, 0.599961, -0.141558]
+  - [ANKRD12, scGEN, 18212, 97.840335, 0.419122, 0.709451]
+  - [ANKRD12, CellOT, 18572, 99.774363, 0.116819, 0.585115]
+  - [ANKRD12, scGPT, 12475, 67.019448, 0.666604, -0.205114]
+
+cellot_export_gene_mean_r:
+  APOE: 0.9727
+  MSI2: 0.9754
+  NR1H3: 0.9729
+  LRRC4C: 0.9712
+  ANKRD12: 0.9930
+
+recorded_common_output_shape: [2106, 18614]
