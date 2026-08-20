@@ -1,4 +1,9 @@
-"""Convert archived scGPT delta-like outputs to the absolute-expression files used for comparison."""
+"""Postprocess scGPT predictions for cross-method benchmark evaluation.
+
+The exported scGPT prediction matrices are mapped to the common gene order,
+converted to the absolute-expression representation used in the benchmark by
+adding the measured control-state mean expression, and clipped at zero.
+"""
 
 from __future__ import annotations
 
