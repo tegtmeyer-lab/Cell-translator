@@ -1,4 +1,4 @@
-"""Validate pancreatic reproduction metrics against notebook reference values."""
+"""Validate pancreatic reproduction metrics against reference values."""
 from __future__ import annotations
 import argparse
 import json
