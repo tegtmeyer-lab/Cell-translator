@@ -39,8 +39,6 @@ morphology_ae:
   gradient_clip: 1.0
   early_stopping_min_delta: 0.000001
   inference_batch_size: 256
-  # The source notebook did not explicitly seed PyTorch before AE training.
-  torch_seed: null
 
 cyclegan:
   epochs: 300
@@ -64,8 +62,6 @@ cyclegan:
   clipnorm: 1.0
   shuffle_buffer: 4096
   steps_per_epoch_from: minimum
-  # The source notebook did not explicitly seed TensorFlow.
-  tensorflow_seed: null
 
 evaluation:
   seed: 42
