@@ -1,7 +1,6 @@
 """Fold-change analyses for NGN3-high-EP to Endocrine translation.
 
-Two analysis definitions are retained because both appear in the source
-notebook: the filtered analysis used for the reported Pearson/sign-accuracy
+Two analysis definitions are retained: the filtered analysis used for the reported Pearson/sign-accuracy
 summary, and a later all-gene linear-space visualization using a smaller
 pseudocount.
 """
