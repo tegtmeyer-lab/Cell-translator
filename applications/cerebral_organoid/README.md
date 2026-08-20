@@ -2,15 +2,12 @@
 
 This application evaluates Cell Translator on three independent scRNA-seq cerebral-organoid maturation datasets. The HurdleAE and latent WGAN-GP CycleGAN are imported from the shared `cell_translator` package; this directory contains only organoid-specific preparation, orchestration, evaluation, and interpretation code.
 
-## Datasets and final translation pairs
+| Dataset                                                     | Config                 |   HVGs | Translation         | Public data                                                                       |
+| ----------------------------------------------------------- | ---------------------- | -----: | ------------------- | --------------------------------------------------------------------------------- |
+| **Cortical Organoids Atlas — Uzquiano et al.**              | `primary_scp1756.yaml` | 15,000 | 2 months → 6 months | [Broad Single Cell Portal, **SCP1756**](https://singlecell.broadinstitute.org/single_cell/study/SCP1756                                             |
+| **Human Neural Organoid Atlas (HNOCA) — He et al.**         | `hnoca_he.yaml`        |  5,000 | 15 days → 60 days   | Zenodo, **HNOCA cleaned datasets**                                                |
+| **Brain organoid developmental time course — Fleck et al.** | `third_organoid.yaml`  |  5,000 | 18 days → 61 days   | Zenodo processed data; raw developmental scRNA-seq: **ArrayExpress E-MTAB-12001** |
 
-| Dataset                                                     | Config                 |   HVGs | Translation         |              
-| **Cortical Organoids Atlas - Uzquiano et al.** 
-https://singlecell.broadinstitute.org/single_cell/study/SCP1756/cortical-organoids-atlas?             | `primary_scp1756.yaml` | 5,000 | 2 months → 6 months |                                        |
-| **Human Neural Organoid Atlas (HNOCA) — He et al.**
-https://zenodo.org/records/14161275         | `hnoca_he.yaml`        |  5,000 | 15 days → 60 days   |                                           |
-| **Brain organoid developmental time course — Fleck et al.** 
-https://zenodo.org/records/5242913| `third_organoid.yaml`  |  5,000 | 18 days → 61 days   | 
 
 
 | Dataset configuration | HVGs | Source | Target |
