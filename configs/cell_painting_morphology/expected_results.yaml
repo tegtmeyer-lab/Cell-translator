@@ -1,4 +1,4 @@
-control_line24:
+control_lineX:
   feature_count: 3409
   ae:
     stem:
@@ -38,26 +38,26 @@ control_line24:
       best_epoch: 100
       best_val: 0.393406
   translations:
-    "Stem → NPC":
+    "Stem -> NPC":
       feature_mean_pearson_r: 0.999757
       feature_std_pearson_r: 0.997446
       median_ks: 0.056340
       target_nn_percent: 99.902391
       n_compared: 2049
-    "NPC → Neuron":
+    "NPC -> Neuron":
       feature_mean_pearson_r: 0.999876
       feature_std_pearson_r: 0.997066
       median_ks: 0.097173
       target_nn_percent: 63.560645
       n_compared: 566
-    "NPC → Astrocyte":
+    "NPC -> Astrocyte":
       feature_mean_pearson_r: 0.999968
       feature_std_pearson_r: 0.999377
       median_ks: 0.087124
       target_nn_percent: 94.117647
       n_compared: 462
 
-deletion_line45:
+deletion_lineY:
   feature_count: 3409
   ae:
     stem:
@@ -88,13 +88,13 @@ deletion_line45:
       best_epoch: 100
       best_val: 0.303156
   translations:
-    "Stem → NPC":
+    "Stem -> NPC":
       feature_mean_pearson_r: 0.999836
       feature_std_pearson_r: 0.997717
       median_ks: 0.055413
       target_nn_percent: 99.967969
       n_compared: 3122
-    "NPC → Astrocyte":
+    "NPC -> Astrocyte":
       feature_mean_pearson_r: 0.999749
       feature_std_pearson_r: 0.999302
       median_ks: 0.094620
@@ -103,21 +103,14 @@ deletion_line45:
 
 effect_size_comparison:
   shared_features_after_neighbor_removal: 3394
-  "Stem → NPC":
+  "Stem -> NPC":
     control_measured_vs_translated_pearson_r: 0.920563
     deletion_measured_vs_translated_pearson_r: 0.916988
     control_vs_deletion_measured_pearson_r: 0.864183
     control_vs_deletion_translated_pearson_r: 0.841354
-  "NPC → Astrocyte":
+  "NPC -> Astrocyte":
     control_measured_vs_translated_pearson_r: 0.996857
     deletion_measured_vs_translated_pearson_r: 0.973601
     control_vs_deletion_measured_pearson_r: 0.898265
     control_vs_deletion_translated_pearson_r: 0.902891
 
-excluded_source_notebook_result:
-  transition: "Deletion NPC → Neuron"
-  reason: >-
-    The deletion neuron data were prepared, but the later AE dictionary used the
-    earlier control-neuron variable. The notebook's deletion neuron AE summary
-    therefore contains 2,828 cells, matching the control-neuron count, and is not
-    a valid deletion-neuron result.
