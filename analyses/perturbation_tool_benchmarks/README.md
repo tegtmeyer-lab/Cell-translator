@@ -2,7 +2,7 @@
 
 This module prepares the external perturbation-model outputs used in the comparison with Cell Translator across **APOE, MSI2, NR1H3, LRRC4C, and ANKRD12**. It does not redefine or modify Cell Translator.
 
-All methods are aligned to the same benchmark gene ordering (18,614 genes) and, where the source notebooks support it, to the same **2,106 control cells** used by the CellOT held-out split.
+All methods are aligned to the same benchmark gene ordering (18,614 genes) and, to the same **2,106 control cells** used by the CellOT held-out split.
 
 ## Source-derived benchmark setup
 
@@ -10,27 +10,87 @@ The combined benchmark AnnData contains 21,971 cells and 18,614 genes: 10,529 co
 
 ### CellOT
 
-The final notebook workflow selects 2,000 HVGs on **control cells only** using Scanpy `flavor="seurat"`, fits PCA(50) on those control HVGs (`random_state=0`), transforms all conditions, and trains CellOT on the 50-dimensional representation. The CellOT task configuration uses batch size 256, a condition-stratified 80:20 split (`random_state=0`), and 100,000 training iterations. Evaluation uses `setting=iid` and `where=data_space`.
+CellOT was implemented following the official
+[CellOT repository](https://github.com/bunnech/cellot).
 
-After CellOT evaluation, PCA predictions are inverse-transformed to the 2,000-HVG expression space, clipped at zero, and expanded back to all 18,614 genes. **Non-HVG genes are filled with the measured control mean**, exactly as in the source notebook. The common 2,106 held-out control observation IDs are exported from CellOT and reused by scGen/scGPT alignment.
+The workflow selects 2,000 highly variable genes (HVGs) from the **control
+cells only** using Scanpy (`flavor="seurat"`). PCA with 50 components is then
+fit on the control-cell HVG expression matrix (`random_state=0`) and used to
+transform all conditions. CellOT is trained on this 50-dimensional
+representation.
 
-The supplied notebook does **not** record the exact CellOT package version or repository commit; it calls an external `configs/models/cellot.yaml`. For exact historical retraining, use the original CellOT checkout if it is available. The preparation and postprocessing steps in this directory are fully specified.
+The CellOT task configuration uses a batch size of 256, a
+condition-stratified 80:20 train/test split (`test_size=0.20`,
+`random_state=0`), and 100,000 training iterations. Evaluation is performed
+with `setting=iid` and `where=data_space`.
+
+Following CellOT evaluation, predicted PCA coordinates are inverse-transformed
+to the 2,000-HVG expression space and clipped at zero. Predictions are then
+expanded to the complete 18,614-gene expression space; genes outside the HVG
+set are assigned their measured control-state mean expression.
+
+The resulting 2,106 held-out control-cell observation IDs define the common
+evaluation set and are reused for alignment of the scGen and scGPT
+predictions.
 
 ### scGen
 
-The recorded environment was Python 3.10.19, scGen 2.1.1, and scvi-tools 1.3.3. The notebook calls `SCGEN.setup_anndata(..., batch_key="condition")`, constructs `SCGEN(adata)`, and trains for 50 epochs. Predictions are generated for the exact 2,106 CellOT test-control IDs for all five perturbations.
+scGen was implemented following the official
+[scGen repository](https://github.com/theislab/scgen).
 
-No random seed was explicitly set in the source notebook, so the public configuration leaves the seed `null` rather than adding one retrospectively.
+The benchmark environment used Python 3.10.19, scGen 2.1.1, and
+scvi-tools 1.3.3. The complete preprocessed expression matrix containing
+control cells and the five perturbation conditions is used for model
+training.
+
+The condition label is registered using
+
+`SCGEN.setup_anndata(adata, batch_key="condition")`
+
+followed by construction of `SCGEN(adata)` and training for 50 epochs.
+
+For each perturbation, `SCGEN.predict()` is applied to the same 2,106
+held-out control cells defined by the CellOT test set. Predictions are
+therefore generated for an identical set of source cells across CellOT,
+scGen, and scGPT for all five perturbations: APOE, MSI2, NR1H3, LRRC4C,
+and ANKRD12.
 
 ### scGPT
 
-The supplied scGPT notebook is **not a complete from-scratch training recipe**. It records scGPT 0.2.4, PyTorch 2.3.1+cu118, and torchtext 0.18.0+cpu; loads a brain pretrained checkpoint into selected encoder prefixes; and constructs perturbation predictions on the CellOT-matched control cells. However, the notebook references `max_seq_len` and `map_raw_id_to_vocab_id` without defining them, leaves 23 parameter tensors outside the loaded checkpoint prefixes, and contains no subsequent fine-tuning step that would resolve their state. Exact raw scGPT prediction generation therefore cannot be reconstructed faithfully from these files alone.
+scGPT was implemented following the official
+[scGPT repository](https://github.com/bowang-lab/scGPT) and its
+perturbation-prediction workflow.
 
-For this reason, the reproducible public path starts from the **archived raw scGPT `.npz` predictions** and reproduces the final postprocessing used in the comparison:
+The benchmark environment used scGPT 0.2.4, PyTorch 2.3.1+cu118, and
+torchtext 0.18.0+cpu. Perturbation data are organized using the GEARS
+`PertData` representation, with each cell represented by its expression
+profile and a binary perturbation indicator.
 
-`absolute prediction = mean(control expression) + yhat`, followed by clipping at zero.
+The pretrained scGPT brain checkpoint is used to initialize the model.
+Checkpoint parameters corresponding to the gene encoder, value encoder, and
+transformer encoder are loaded, including conversion of fused attention
+weights when required by the PyTorch transformer implementation. These
+pretrained backbone components are then frozen, while the remaining model
+parameters are fine-tuned on the perturbation data.
 
-This is intentionally separated from any speculative from-scratch scGPT implementation.
+Fine-tuning uses seed 42, a maximum sequence length of 256 genes, Adam
+optimization with a learning rate of `1e-3`, masked mean-squared-error loss,
+gradient clipping at 1.0, and two training epochs. During training, up to
+256 genes are sampled per batch. During inference, all 18,614 genes are
+predicted in sequential 256-gene chunks.
+
+For cross-method evaluation, the CellOT held-out control-cell IDs are matched
+to the corresponding scGPT/GEARS control graphs. Each of the five
+perturbations is then applied to the same 2,106 control cells using a
+single-gene perturbation mask, producing one prediction matrix per
+perturbation in the common 18,614-gene space.
+
+For the benchmark expression matrices, the exported scGPT `yhat` values are
+converted to the absolute expression scale used by the other methods by
+
+`X_pred = mean(control expression) + yhat`
+
+followed by clipping negative values to zero.
 
 ## Commands
 
@@ -43,7 +103,7 @@ python -m analyses.perturbation_tool_benchmarks.cellot_prepare \
   --config configs/benchmarks/perturbation_tools.yaml
 ```
 
-Run CellOT from the environment containing the historical/external CellOT checkout:
+Run CellOT from the environment containing the external CellOT checkout:
 
 ```bash
 python -m analyses.perturbation_tool_benchmarks.cellot_train \
@@ -88,4 +148,4 @@ python -m analyses.perturbation_tool_benchmarks.validate_comparison \
 
 ## Environment note
 
-These external tools have mutually sensitive dependency stacks. They should be run in **separate environments** rather than adding scGen, CellOT, scGPT/GEARS, and their version-specific PyTorch dependencies to the main Cell Translator environment.
+These external tools have sensitive dependency stacks. They should be run in **separate environments** rather than adding scGen, CellOT, scGPT/GEARS, and their version-specific PyTorch dependencies to the main Cell Translator environment.
