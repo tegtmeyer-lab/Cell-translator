@@ -1,4 +1,4 @@
-"""Validate reproduced perturbation outputs against notebook reference values."""
+"""Validate reproduced perturbation outputs against reference values."""
 
 from __future__ import annotations
 import argparse, json
