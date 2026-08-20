@@ -12,8 +12,6 @@
 - force-added genes in the executed run: `Gcg`, `Chgb`, `Kcnj11`
 - final gene count: 5,003
 
-The earlier 3,999-HVG atlas-mask extraction and an earlier uppercase marker block are exploratory notebook paths and are not used for the reported model.
-
 ## HurdleAE
 
 - shared single-encoder HurdleAE
@@ -61,8 +59,6 @@ The earlier 3,999-HVG atlas-mask extraction and an earlier uppercase marker bloc
 Gene-space KS/Wasserstein evaluation equalizes measured and translated target cell counts using `np.random.default_rng(42)`. The reported output used 372 translated source-validation cells and 525 measured target-validation cells.
 
 ## Fold-change analysis
-
-The notebook contains two distinct definitions, retained separately:
 
 1. Reported filtered summary: inverse-log1p linear means, expression threshold 0.1, detection fraction 0.05, pseudocount 0.1, log2FC clipped to ±6. This yielded `r=0.9875` and sign accuracy `0.8314`.
 2. Later all-gene analysis: inverse-log1p linear means with pseudocount 1e-3 and a 1% detection mask used for visualization.
