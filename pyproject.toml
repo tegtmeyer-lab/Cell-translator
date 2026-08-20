@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "cell-translator"
 version = "1.0.0"
-description = "Cell Translator framework for transcriptomic and Cell Painting state translation"
+description = "Cell Translator: a generative framework for predicting transcriptional and morphological cell state translations across biological systems"
 requires-python = ">=3.10"
 dependencies = [
   "numpy",
