@@ -41,9 +41,7 @@ python applications/genetic_perturbation/prepare_data.py \
 
 The cleaned workflow stores the shared control matrix only once rather than
 copying it into five pairwise directories. This changes storage organization
-only; the expression values supplied to the models are unchanged. A SHA-256
-manifest is written and the script warns if two perturbation matrices are
-exactly identical.
+only; the expression values supplied to the models are unchanged. 
 
 ## 2. Recompute predictions from the archived models
 
