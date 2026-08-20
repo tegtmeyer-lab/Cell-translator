@@ -2,13 +2,6 @@
 
 This application evaluates Cell Translator on three independent scRNA-seq cerebral-organoid maturation datasets. The HurdleAE and latent WGAN-GP CycleGAN are imported from the shared `cell_translator` package; this directory contains only organoid-specific preparation, orchestration, evaluation, and interpretation code.
 
-| Dataset                                                     | Config                 |   HVGs | Translation         | Public data                                                                       |
-| ----------------------------------------------------------- | ---------------------- | -----: | ------------------- | --------------------------------------------------------------------------------- |
-| **Cortical Organoids Atlas - Uzquiano et al.**              | `primary_scp1756.yaml` | 5,000 | 2 months → 6 months | [Broad Single Cell Portal, **SCP1756**](https://singlecell.broadinstitute.org/single_cell/study/SCP1756                                             |
-| **Human Neural Organoid Atlas (HNOCA) — He et al.**         | `hnoca_he.yaml`        |  5,000 | 15 days → 60 days   | [Zenodo, **HNOCA cleaned datasets**](https://zenodo.org/records/14161275)                                                |
-| **Brain organoid developmental time course — Fleck et al.** | `third_organoid.yaml`  |  5,000 | 18 days → 61 days   | [Zenodo processed data; raw developmental scRNA-seq: **ArrayExpress E-MTAB-12001**](https://zenodo.org/records/5242913) |
-
-
 ## Datasets
 
 The cerebral organoid analyses use three publicly available single-cell RNA-seq datasets:
@@ -18,6 +11,10 @@ The cerebral organoid analyses use three publicly available single-cell RNA-seq 
 | Uzquiano et al. cortical organoid atlas | 2 months --> 6 months | [Broad Single Cell Portal — SCP1756](https://singlecell.broadinstitute.org/single_cell/study/SCP1756) |
 | He et al. Human Neural Organoid Cell Atlas (HNOCA) | 15 days --> 60 days | [HNOCA cleaned datasets — Zenodo](https://zenodo.org/records/14161275) |
 | Fleck et al. brain organoid developmental time course | 18 days --> 61 days | [Processed data — Zenodo](https://zenodo.org/records/5242913) / [Raw scRNA-seq — ArrayExpress E-MTAB-12001](https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MTAB-12001) |
+
+Download the corresponding
+dataset from the links above and update the local input path in the relevant
+configuration file before running the application.
 
 For the primary dataset, HVGs are selected jointly across the 1-, 2-, 3-, 4-, 5-, and 6-month samples. For HNOCA/He, exact ages 15, 30, 60, 90, 120, 150, and 180 days are used for HVG selection. For the third dataset, exact ages 4, 9, 12, 18, 21, and 61 days are used.
 
