@@ -130,16 +130,14 @@ See [`analyses/baseline_comparison/README.md`](analyses/baseline_comparison/READ
 ### Leave-one-line-out morphology validation
 
 Evaluates generalization to entirely held-out control cell lines across five
-neural differentiation transitions. The historically used reduced validation
-architecture is kept local to this analysis and does not replace the canonical
-morphology implementation.
+neural differentiation transitions.
 
 See [`analyses/leave_one_line_out/README.md`](analyses/leave_one_line_out/README.md).
 ### Perturbation tool benchmarks
 
 Prepares the scGen, CellOT, and archived-scGPT benchmark outputs used in the
 five-perturbation comparison with Cell Translator. External tool code remains
-separate from the canonical Cell Translator implementation.
+separate from the Cell Translator implementation.
 
 See [`analyses/perturbation_tool_benchmarks/README.md`](analyses/perturbation_tool_benchmarks/README.md).
 
