@@ -20,9 +20,6 @@ expected_input:
   target_cells: 6270
   genes: 5000
 
-# The main per-gene distribution block in the source notebook used the
-# globally hard-thresholded translation. Library-matched output was also
-# reported as an alternative distribution check.
 evaluation:
   distribution_output: hard
   also_evaluate_library_matched: true
