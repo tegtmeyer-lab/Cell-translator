@@ -37,25 +37,33 @@ classes or training losses.
 
 ## Data preprocessing
 
-Raw single-cell RNA-seq data were processed using Scanpy following its standard single-cell preprocessing workflow. Application-specific quality-control filters, normalization, gene selection, and output formatting used to generate the Cell Translator input matrices are documented in the corresponding application directories.
+Single-cell RNA-seq datasets were preprocessed using Scanpy following its
+standard single-cell preprocessing workflow. The resulting preprocessed
+expression matrices are used as inputs to the corresponding Cell Translator
+applications.
 
-See the [Scanpy preprocessing and clustering tutorial](https://scanpy.readthedocs.io/en/stable/tutorials/basics/clustering.html) for the general preprocessing workflow.
+See the [Scanpy preprocessing and clustering tutorial](https://scanpy.readthedocs.io/en/stable/tutorials/basics/clustering.html)
+for the preprocessing workflow. Application-specific input requirements and
+expected data formats are described in the corresponding application
+directories.
 
-## Install
+## Installation
 
 Clone the repository and install Cell Translator in editable mode:
 
 ```bash
-git clone <repository-url>
-cd Cell-Translator
+git clone https://github.com/tegtmeyer-lab/Cell-translator.git
+cd Cell-translator
 pip install -e .
-```
 
 For full reproducibility, we recommend using the package versions specified in the provided environment or requirements files.
 
-## Applications currently organized
+## Applications
 
 ### Neuronal differentiation
+
+See [`applications/neuronal_differentiation/README.md`](applications/neuronal_differentiation/README.md)
+for data preprocessing, configuration, and application-specific workflow details.
 
 ```bash
 python applications/neuronal_differentiation/run.py \
@@ -67,7 +75,7 @@ python applications/neuronal_differentiation/run.py \
 
 ### Genetic perturbation
 
-The perturbation application covers control→APOE, MSI2, NR1H3, LRRC4C, and
+The perturbation application covers control -> APOE, MSI2, NR1H3, LRRC4C, and
 ANKRD12 translation. It preserves the separate-control/target-encoder HurdleAE
 architecture used in that analysis while sharing the common CycleGAN model and
 loss implementation.
@@ -85,17 +93,19 @@ See [`applications/cerebral_organoid/README.md`](applications/cerebral_organoid/
 
 ### Pancreatic endocrine differentiation
 
-The pancreatic application reproduces NGN3-high endocrine progenitor -->
-Endocrine translation in GSE132188 using the final 5,003-gene input.
+### Pancreatic endocrine differentiation
+
+The pancreatic application evaluates NGN3-high endocrine progenitor ->
+endocrine maturation using the publicly available mouse pancreatic
+development dataset GSE132188 and the final 5,003-gene input representation.
 
 See [`applications/pancreatic_endocrine/README.md`](applications/pancreatic_endocrine/README.md).
-
 ### Acute leukemia
 
-The acute leukemia application contains two workflows: healthy CD34+ --> BMMC
-differentiation and CD34+ --> MPAL leukemia transformation. It preserves the
-independent-state HurdleAE and historical acute-leukemia CycleGAN training
-variant used in the source analyses.
+The acute leukemia application contains two workflows: healthy CD34+ -> BMMC
+differentiation and CD34+ -> MPAL leukemia transformation. It uses the
+independent-state HurdleAE architecture together with an application-specific
+CycleGAN training configuration.
 
 See [`applications/acute_leukemia/README.md`](applications/acute_leukemia/README.md).
 
@@ -103,8 +113,8 @@ See [`applications/acute_leukemia/README.md`](applications/acute_leukemia/README
 
 The morphology application uses state-specific dense autoencoders and a
 morphology-specific latent CycleGAN for Cell Painting profiles. The organized
-workflow covers the coherent 3,409-feature control-line translations and the
-verified deletion Stem->NPC and NPC->Astrocyte translations.
+workflow covers the 3,409-feature control-line translations and the verified
+deletion Stem -> NPC and NPC -> Astrocyte translations.
 
 See [`applications/cell_painting_morphology/README.md`](applications/cell_painting_morphology/README.md).
 
@@ -133,11 +143,13 @@ Evaluates generalization to entirely held-out control cell lines across five
 neural differentiation transitions.
 
 See [`analyses/leave_one_line_out/README.md`](analyses/leave_one_line_out/README.md).
+
 ### Perturbation tool benchmarks
 
-Prepares the scGen, CellOT, and archived-scGPT benchmark outputs used in the
-five-perturbation comparison with Cell Translator. External tool code remains
-separate from the Cell Translator implementation.
+Provides reproducible benchmark workflows for CellOT, scGen, and scGPT and
+compares their perturbation predictions with Cell Translator across five
+genetic perturbations using a common held-out control-cell set. External tool
+implementations and dependencies remain separate from the Cell Translator
+model code.
 
 See [`analyses/perturbation_tool_benchmarks/README.md`](analyses/perturbation_tool_benchmarks/README.md).
-
