@@ -1,9 +1,4 @@
-"""Integrated-gradients and DriverScore analysis for the primary organoid run.
-
-This reproduces the final coherent 128-dimensional driver-gene workflow in the
-source notebook. Earlier exploratory 250-dimensional latent-axis cells are not
-part of this module.
-"""
+"""Integrated-gradients and DriverScore analysis for the primary organoid run."""
 from __future__ import annotations
 import argparse
 from pathlib import Path
