@@ -60,7 +60,7 @@ The final validation workflow compares translated held-out 2-month cells with he
 - gene-mean Pearson r = 0.9583
 - detection-rate Pearson r = 0.9481
 - median per-gene KS = approximately 0.0011
-- historical mean-log1p effect correlation r = 0.9908
+- mean-log1p effect correlation r = 0.9908
 
 Validate reproduced metrics with:
 
