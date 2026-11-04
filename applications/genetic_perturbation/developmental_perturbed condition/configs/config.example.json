@@ -1,0 +1,64 @@
+{
+  "conditions": [
+    "control",
+    "APOE",
+    "MSI2",
+    "NR1H3",
+    "ANKRD12",
+    "LRRC4C"
+  ],
+  "output_dir": "outputs/developmental",
+  "group_column": "group",
+  "group_files": {
+    "control": {
+      "NPC": null,
+      "Neuron": null
+    },
+    "APOE": {
+      "NPC": null,
+      "Neuron": null
+    },
+    "MSI2": {
+      "NPC": null,
+      "Neuron": null
+    },
+    "NR1H3": {
+      "NPC": null,
+      "Neuron": null
+    },
+    "ANKRD12": {
+      "NPC": null,
+      "Neuron": null
+    },
+    "LRRC4C": {
+      "NPC": null,
+      "Neuron": null
+    }
+  },
+  "input_files": {
+    "control": {
+      "NPC": "data/control/npc_log1p_cp10k.csv",
+      "Neuron": "data/control/neuron_log1p_cp10k.csv"
+    },
+    "APOE": {
+      "NPC": "data/APOE/npc_log1p_cp10k.csv",
+      "Neuron": "data/APOE/neuron_log1p_cp10k.csv"
+    },
+    "MSI2": {
+      "NPC": "data/MSI2/npc_log1p_cp10k.csv",
+      "Neuron": "data/MSI2/neuron_log1p_cp10k.csv"
+    },
+    "NR1H3": {
+      "NPC": "data/NR1H3/npc_log1p_cp10k.csv",
+      "Neuron": "data/NR1H3/neuron_log1p_cp10k.csv"
+    },
+    "ANKRD12": {
+      "NPC": "data/ANKRD12/npc_log1p_cp10k.csv",
+      "Neuron": "data/ANKRD12/neuron_log1p_cp10k.csv"
+    },
+    "LRRC4C": {
+      "NPC": "data/LRRC4C/npc_log1p_cp10k.csv",
+      "Neuron": "data/LRRC4C/neuron_log1p_cp10k.csv"
+    }
+  }
+}
