@@ -1,24 +1,20 @@
 # %% [markdown]
-# # Cell Translator — developmental NPC → Neuron translation across conditions
-# 
-# This notebook is a clean rewrite of the uploaded perturbation notebook for **developmental translation within each condition**.
-# 
+# # Cell Translator — developmental NPC --> Neuron translation across conditions
+#  
 # Configured transitions:
 # 
-# 1. Control NPC → Control Neuron
-# 2. APOE-perturbed NPC → APOE-perturbed Neuron
-# 3. MSI2-perturbed NPC → MSI2-perturbed Neuron
-# 4. NR1H3-perturbed NPC → NR1H3-perturbed Neuron
-# 5. ANKRD12-perturbed NPC → ANKRD12-perturbed Neuron
-# 6. LRRC4C-perturbed NPC → LRRC4C-perturbed Neuron
-# 
-# > The request says seven translations, but only six source→target pairs were listed. This notebook implements all six listed pairs. Add a seventh condition to `INPUT_FILES` and `RUN_CONDITIONS` when its NPC and Neuron inputs are known.
+# 1. Control NPC -> Control Neuron
+# 2. APOE-perturbed NPC -> APOE-perturbed Neuron
+# 3. MSI2-perturbed NPC -> MSI2-perturbed Neuron
+# 4. NR1H3-perturbed NPC -> NR1H3-perturbed Neuron
+# 5. ANKRD12-perturbed NPC -> ANKRD12-perturbed Neuron
+# 6. LRRC4C-perturbed NPC -> LRRC4C-perturbed Neuron
 # 
 # ## Design choices
 # 
 # - One pairwise HurdleAE + latent CycleGAN is trained **per condition**.
-# - HurdleAE domains are now **source NPC** and **target Neuron** (not control vs perturbation).
-# - All 12 CSVs are restricted to one common gene set and one fixed gene order.
+# - HurdleAE domains are now **source NPC** and **target Neuron**.
+# - All CSVs are restricted to one common gene set and one fixed gene order.
 # - NPC and Neuron cells are split independently into **70% train / 15% validation / 15% test**.
 # - All AE latent standardization and hurdle thresholds are estimated from **training cells only**.
 # - CycleGAN is trained only on training latents. Validation latents are used for monitoring. Test cells are untouched until final evaluation.
