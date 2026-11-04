@@ -1,7 +1,7 @@
 # Experiment 3: Leave-one-perturbation-out developmental generalization
 # Shared HurdleAE + latent CycleGAN, trained from scratch for each holdout.
 # All five holdout conditions have **zero** NPC and Neuron examples during training.
-# The frozen heldout test inputs from Experiment 2 are used only after training.
+# The frozen heldout test inputs from analysis 1 are used only after training.
 # Original AE/GAN functions are carried over from your developmental notebook.
 
 
