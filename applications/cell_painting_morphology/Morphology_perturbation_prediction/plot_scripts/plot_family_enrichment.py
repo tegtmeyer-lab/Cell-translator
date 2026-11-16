@@ -1,10 +1,4 @@
-"""Publication-ready morphology-family enrichment figures for Cell Translator.
 
-Reads CSVs saved by Morph_perturbation_category_effect_IG.ipynb.
-Does not retrain any model or recompute enrichment statistics.
-
-Exports PNG (300 dpi, exact dimensions) and vector PDF.
-"""
 import os
 from pathlib import Path
 import numpy as np
@@ -12,18 +6,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 
-# -----------------------------------------------------------------------------
-# Paths and figure dimensions (inches)
-# -----------------------------------------------------------------------------
-RUN_ROOT = Path(os.environ.get('CELL_TRANSLATOR_RUN_DIR', str(Path.cwd() / 'outputs' / 'rerun_70_15_15_qc_v3'))).expanduser().resolve()
+
+RUN_ROOT = Path(os.environ.get('CELL_TRANSLATOR_RUN_DIR', str(Path.cwd() / 'outputs' / 'run_70_15_15_qc_v3'))).expanduser().resolve()
 IN_DIR = RUN_ROOT / 'evaluation' / 'category_effect_ig'
 OUT_DIR = IN_DIR / 'combined_panels'
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # Edit these to resize the final exported figures.
-FIGSIZE_GROUPED = (18, 10)  # expected PNG: 5400 × 3000
-FIGSIZE_IG = (13, 8)        # expected PNG: 3900 × 2400
-FIGSIZE_SIGNED = (15, 7)    # expected PNG: 4500 × 2100
+FIGSIZE_GROUPED = (18, 10)  
+FIGSIZE_IG = (13, 8)       
+FIGSIZE_SIGNED = (15, 7)   
 DPI = 300
 
 DRUGS = ['Latrunculin_B', 'GW3965', 'Clozapine']
