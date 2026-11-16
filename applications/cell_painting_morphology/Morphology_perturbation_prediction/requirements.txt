@@ -1,0 +1,11 @@
+# Use a Python version supported by your chosen TensorFlow and PyTorch builds.
+numpy
+pandas
+scipy
+scikit-learn
+matplotlib
+seaborn
+jupyterlab
+ipykernel
+torch
+tensorflow
