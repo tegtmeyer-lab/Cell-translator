@@ -1,9 +1,4 @@
-"""Supplementary cross-drug morphology-effect specificity heatmaps.
-
-Reads existing Phase 1 CSVs, without retraining or recomputing signatures.
-Rows: predicted drug; columns: measured drug. Correlations use the same
-common morphology features within each strategy, as in the Phase 1 analysis.
-"""
+"""Supplementary cross-drug morphology-effect specificity heatmaps."""
 import os
 from pathlib import Path
 import numpy as np
@@ -12,7 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import TwoSlopeNorm
 from matplotlib.patches import Rectangle
 
-RUN_ROOT = Path(os.environ.get('CELL_TRANSLATOR_RUN_DIR', str(Path.cwd() / 'outputs' / 'rerun_70_15_15_qc_v3'))).expanduser().resolve()
+RUN_ROOT = Path(os.environ.get('CELL_TRANSLATOR_RUN_DIR', str(Path.cwd() / 'outputs' / 'run_70_15_15_qc_v3'))).expanduser().resolve()
 INPUT_DIR = RUN_ROOT / 'evaluation' / 'phase1_interpretation'
 OUTPUT_DIR = INPUT_DIR / 'supplementary_figures'
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
