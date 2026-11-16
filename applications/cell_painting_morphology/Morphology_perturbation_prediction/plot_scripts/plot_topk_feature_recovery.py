@@ -1,18 +1,4 @@
 """Cell Translator morphology: top-K feature-ranking recovery.
-
-Produces:
-  * top100_recovery_three_strategies.png/.pdf: three strategies × three drugs
-  * topK_recovery_three_strategies.png/.pdf: K=20,50,100 for each
-  * topK_recovery_summary.csv and top100_recovery_summary.csv
-  * DMSO_developmental_differentiation_top100.png/.pdf + CSV (SEPARATE endpoint)
-
-Usage in Jupyter:
-  %run plot_top100_morphology_recovery.py
-
-Does NOT retrain models. Reads saved original-scale predicted profiles and
-train-scaled measured test profiles from corrected pipeline. All ranks are based
-on absolute conventional Cohen's d, with each real/pred contrast using its own
-pooled SD, reproducing the earlier top-20 ranking convention.
 """
 import os
 from pathlib import Path
@@ -20,8 +6,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# ---------- CONFIGURATION ----------
-RUN_ROOT = Path(os.environ.get('CELL_TRANSLATOR_RUN_DIR', str(Path.cwd() / 'outputs' / 'rerun_70_15_15_qc_v3'))).expanduser().resolve()
+RUN_ROOT = Path(os.environ.get('CELL_TRANSLATOR_RUN_DIR', str(Path.cwd() / 'outputs' / 'run_70_15_15_qc_v3'))).expanduser().resolve()
 AE_DIR = RUN_ROOT / 'autoencoders'
 DEV_DIR = RUN_ROOT / 'cyclegan_ipsc_astrocyte_drugs'
 CTRL_DIR = RUN_ROOT / 'cyclegan_control_to_perturbation'
@@ -39,7 +24,6 @@ LABELS = {
 TOP_KS = (20, 50, 100)
 COLORS = {'iPSC_control_to_drug':'#587e9d', 'Astrocyte_control_to_drug':'#d28c59', 'developmental':'#608b79'}
 
-# ---------- FILE LOADERS ----------
 def original_test(condition):
     prefix = AE_DIR / condition
     stats = pd.read_csv(str(prefix) + '_scaler_stats.csv')
@@ -101,11 +85,7 @@ def effect_table(control_real, drug_real, control_pred, drug_pred, label):
 
 
 def load_effect(strategy, drug):
-    """Use the EXISTING saved table for Astro and developmental, if present.
 
-    Their ranking used predicted-own-pooled-SD, so use exactly that column.
-    For iPSC we construct the same definition from original-scale arrays.
-    """
     if strategy in ('Astrocyte_control_to_drug','developmental'):
         label = 'developmental' if strategy=='developmental' else 'control_to_drug'
         file = EFFECT_DIR / f'{label}__{drug}_cohens_d_features.csv'
@@ -185,12 +165,6 @@ def plot_topk(summary):
 
 
 def dmso_developmental_recovery():
-    """Control DMSO differentiation, NOT a drug-vs-DMSO signature.
-
-    Measured d = Astrocytes_DMSO - iPSC_DMSO.
-    Predicted d = translated_Astrocytes_DMSO - iPSC_DMSO.
-    Original scale; both rankings use own pooled SD.
-    """
     src=original_test('iPSC_DMSO')
     tgt=original_test('Astrocytes_DMSO')
     pred=predicted_development('DMSO')
