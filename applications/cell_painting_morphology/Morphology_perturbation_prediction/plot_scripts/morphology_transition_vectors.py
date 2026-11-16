@@ -10,7 +10,7 @@ from sklearn.decomposition import PCA
 from matplotlib.lines import Line2D
 
 BASE_DIR = Path(os.environ.get('CELL_TRANSLATOR_DATA_DIR', str(Path.cwd() / 'data'))).expanduser().resolve()
-RUN_ROOT = Path(os.environ.get('CELL_TRANSLATOR_RUN_DIR', str(Path.cwd() / 'outputs' / 'rerun_70_15_15_qc_v3'))).expanduser().resolve()  
+RUN_ROOT = Path(os.environ.get('CELL_TRANSLATOR_RUN_DIR', str(Path.cwd() / 'outputs' / 'run_70_15_15_qc_v3'))).expanduser().resolve()  
 AE_DIR = RUN_ROOT / 'autoencoders'
 DEV_DIR = RUN_ROOT / 'cyclegan_ipsc_astrocyte_drugs'
 CTRL_DIR = RUN_ROOT / 'cyclegan_control_to_perturbation'
