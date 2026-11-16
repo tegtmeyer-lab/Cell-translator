@@ -2,7 +2,7 @@
 # Shared HurdleAE + latent CycleGAN, trained from scratch for each holdout.
 # All five holdout conditions have **zero** NPC and Neuron examples during training.
 # The frozen heldout test inputs from analysis 1 are used only after training.
-# Original AE/GAN functions are carried over from your developmental notebook.
+# Original AE/GAN functions are carried over from developmental notebook.
 
 
 from pathlib import Path
@@ -1220,7 +1220,6 @@ def aggregate_lopo_results():
     return out
 
 def print_evaluator_configuration():
-    print('Paste these lines into your existing state evaluation notebook configuration:')
     print('GENERALIZATION_PREDICTIONS = {')
     for g in HOLDOUTS: print(f'    "{g}": r"{OUT_ROOT / ("heldout_" + g) / "predicted_neuron_hard_test.npy"}",')
     print('}')
