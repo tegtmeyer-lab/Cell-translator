@@ -1,4 +1,0 @@
-# Copy this file to .env for reference; the project does not auto-load .env.
-# Set these variables in your terminal before launching Jupyter.
-CELL_TRANSLATOR_DATA_DIR=/path/to/private/morphology/csvs
-CELL_TRANSLATOR_RUN_DIR=/path/to/private/morphology/results
